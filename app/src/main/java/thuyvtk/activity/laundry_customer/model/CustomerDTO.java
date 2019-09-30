@@ -15,6 +15,8 @@ public class CustomerDTO implements Serializable {
     private String phone;
     @SerializedName("Rate")
     private int rate;
+    @SerializedName("DateCreate")
+    private String createDate;
 
     public String getCustomerId() {
         return customerId;
@@ -54,5 +56,22 @@ public class CustomerDTO implements Serializable {
 
     public void setRate(int rate) {
         this.rate = rate;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public CustomerDTO(String customerId, String customerName, String email, String phone, int rate, String createDate) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.email = email;
+        this.phone = phone;
+        this.rate = rate;
+        this.createDate = createDate;
     }
 }

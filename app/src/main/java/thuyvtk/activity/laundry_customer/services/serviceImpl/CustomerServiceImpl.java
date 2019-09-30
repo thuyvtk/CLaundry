@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,8 +61,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomer(String customerId, String customerName,String email, String phone,int rate, Timestamp createDate, final CallbackData<CustomerDTO> callbackData) {
-        Call<ResponseBody> callService = clientApi.getGenericApi().updateCustomer(customerId, customerName,email,phone,rate,createDate);
+    public void updateCustomer(CustomerDTO customer, final CallbackData<CustomerDTO> callbackData) {
+        Gson gson = new Gson();
+        String json = gson.toJson(customer);
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+        Call<ResponseBody> callService = clientApi.getGenericApi().updateCustomer(body);
+
         try {
             callService.enqueue(new Callback<ResponseBody>() {
                 @Override

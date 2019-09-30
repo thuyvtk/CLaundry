@@ -9,6 +9,6 @@ import thuyvtk.activity.laundry_customer.model.CustomerDTO;
 public interface CustomerService {
 
     void getCustomerById(CallbackData<CustomerDTO> callbackData);
-    void updateCustomer(String customerId, String customerName, String email, String phone, int rate, Timestamp createDate, CallbackData<CustomerDTO> callbackData);
+    void updateCustomer(CustomerDTO customer, CallbackData<CustomerDTO> callbackData);
 
 }
