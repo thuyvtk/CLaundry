@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Laundry_Customer</string>
+    <string name="login_phone">Phone Number</string>
+    <string name="application">laundry</string>
+    <string name="hint_search_bar">Find laundry shop</string>
+    <string name="address">Address</string>
+    <string name="service_all">All</string>
+    <string name="service_wash">Wash</string>
+    <string name="service_shoes">Shoes</string>
+    <string name="service_stuffed">Stuffed</string>
+    <string name="service_dryClear">Dry</string>
+    <string name="order_ongoing">Ongoing</string>
+    <string name="order_history">History</string>
+</resources>

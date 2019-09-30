@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="25px"
+    android:layout_marginRight="25px"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".activity.MainActivity">
+    <!--    SearchBar-->
+    <LinearLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="320dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/boder_radius">
+
+            <ImageButton
+                android:id="@+id/btnSearchIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/boder_radius"
+                android:outlineProvider="none"
+                android:src="@drawable/ic_search_black_24dp" />
+
+            <Button
+                android:id="@+id/btnSearchStore"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/boder_radius"
+                android:outlineProvider="none"
+                android:paddingLeft="50px"
+                android:text="@string/hint_search_bar"
+                android:textColor="#F8A39E9E"
+                android:textSize="20px" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <ImageButton
+            android:id="@+id/btnNotification"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="#0000"
+            android:outlineProvider="none"
+            android:paddingLeft="15px"
+            android:src="@drawable/ic_notifications_red_24dp" />
+
+    </LinearLayout>
+    <!--    Location-->
+    <LinearLayout
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/address"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_arrow_forward_black_24dp" />
+
+        <TextView
+            android:id="@+id/txtAddress"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:text="24/1 xom 6 thon 7 xa tan chau huyen di" />
+
+        <ImageButton
+            android:id="@+id/btnDetailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="45px"
+            android:layout_gravity="right"
+            android:background="#0000"
+            android:outlineProvider="none"
+            android:src="@drawable/ic_chevron_right_black_24dp" />
+    </LinearLayout>
+    <!--    Service-->
+    <LinearLayout
+        android:id="@+id/service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0000"
+        android:orientation="horizontal"
+        android:paddingTop="50px">
+
+        <ImageButton
+            android:id="@+id/btnAllService"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/boder_cycle_5dp"
+            android:src="@drawable/ic_icons_check_all" />
+
+        <ImageButton
+            android:id="@+id/btnWashService"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/boder_cycle_5dp"
+            android:src="@drawable/ic_icon_wash" />
+
+        <ImageButton
+            android:id="@+id/btnShoesService"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/boder_cycle_5dp"
+            android:src="@drawable/ic_icon_shoes" />
+
+        <ImageButton
+            android:id="@+id/btnStuffedService"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/boder_cycle_5dp"
+            android:src="@drawable/ic_icon_teddy_bear" />
+
+        <ImageButton
+            android:id="@+id/btnDryClearService"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/boder_cycle_5dp"
+            android:src="@drawable/ic_icon_dry_clear" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0000"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/lbServiceAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:paddingLeft="60px"
+            android:text="@string/service_all"
+            android:textColor="#bac2c4"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/lbServiceWash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:paddingLeft="80px"
+            android:text="@string/service_wash"
+            android:textColor="#bac2c4"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/lbServiceShoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:paddingLeft="70px"
+            android:text="@string/service_shoes"
+            android:textColor="#bac2c4"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/lbServiceStuffed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:paddingLeft="50px"
+            android:text="@string/service_stuffed"
+            android:textColor="#bac2c4"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/lbServiceDry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:paddingLeft="54px"
+            android:text="@string/service_dryClear"
+            android:textColor="#bac2c4"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+    <!--        Tab service-->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabStore"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/background_tab"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#4d4dff"
+        app:tabIndicatorHeight="2sp"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/CustomTabText"
+        android:layout_marginTop="40px"
+        android:layout_marginBottom="50px"/>
+    <!--            android:background="@drawable/background_tab"-->
+
+    <!--    <android.support.v4.view.ViewPager-->
+    <!--        android:id="@+id/viewpager"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="1"-->
+    <!--        app:layout_behavior="thuy"  />-->
+    <!--    List store-->
+    <ListView
+        android:id="@+id/lvStore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
