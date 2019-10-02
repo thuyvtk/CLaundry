@@ -10,7 +10,7 @@ public class ConfigApi {
 
     public interface Api {
      String GET_ALL_STORE = "Store/GetAll";
-     String GET_CUSTOMER_BY_ID = "Customer/GetById?Id=d8961124-f5dd-4124-8453-08d74555b235";
+     String GET_CUSTOMER_BY_FIREBASE_ID = "Customer/GetByUserID";
      String UPDATE_CUSTOMER = "Customer/UpdateCustomer";
     }
 

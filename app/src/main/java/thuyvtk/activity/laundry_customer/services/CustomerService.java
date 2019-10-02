@@ -8,7 +8,7 @@ import thuyvtk.activity.laundry_customer.model.CustomerDTO;
 
 public interface CustomerService {
 
-    void getCustomerById(CallbackData<CustomerDTO> callbackData);
+    void getCustomerByFirebaseId(String id, CallbackData<CustomerDTO> callbackData);
     void updateCustomer(CustomerDTO customer, CallbackData<CustomerDTO> callbackData);
 
 }

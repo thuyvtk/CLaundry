@@ -20,8 +20,8 @@ public interface GenericApi {
     @GET(ConfigApi.Api.GET_ALL_STORE)
     Call<ResponseBody> getAllStore();
 
-    @GET(ConfigApi.Api.GET_CUSTOMER_BY_ID)
-    Call<ResponseBody> getCustomerById();
+    @GET(ConfigApi.Api.GET_CUSTOMER_BY_FIREBASE_ID)
+    Call<ResponseBody> getCustomerByFirebaseId(@Query("Id")String id);
 
     @PUT(ConfigApi.Api.UPDATE_CUSTOMER)
     Call<ResponseBody> updateCustomer(@Body RequestBody customer);

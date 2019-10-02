@@ -1,8 +1,5 @@
 package thuyvtk.activity.laundry_customer.presenter;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import thuyvtk.activity.laundry_customer.callbacks.CallbackData;
 import thuyvtk.activity.laundry_customer.model.CustomerDTO;
 import thuyvtk.activity.laundry_customer.services.CustomerService;
@@ -18,8 +15,8 @@ public class CustomerPresenter {
         this.customerView = customerView;
     }
 
-    public void getCustomerById (){
-        customerService.getCustomerById(new CallbackData<CustomerDTO>() {
+    public void getCustomerByFirebaseId (String userId){
+        customerService.getCustomerByFirebaseId(userId, new CallbackData<CustomerDTO>() {
             @Override
             public void onSuccess(CustomerDTO customerDTO) {
                 customerView.returnCustomer(customerDTO);

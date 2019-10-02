@@ -22,8 +22,8 @@ public class CustomerServiceImpl implements CustomerService {
     ClientApi clientApi =  new ClientApi();
 
     @Override
-    public void getCustomerById(final CallbackData<CustomerDTO> callbackData) {
-        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getCustomerById();
+    public void getCustomerByFirebaseId(String id, final CallbackData<CustomerDTO> callbackData) {
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getCustomerByFirebaseId(id);
         try {
 
             serviceCall.enqueue(new Callback<ResponseBody>() {

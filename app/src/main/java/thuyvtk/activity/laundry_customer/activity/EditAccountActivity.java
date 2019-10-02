@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 
 import thuyvtk.activity.laundry_customer.R;
 import thuyvtk.activity.laundry_customer.fragment.AccountFragment;
+import thuyvtk.activity.laundry_customer.library.SharePreferenceLib;
 import thuyvtk.activity.laundry_customer.model.CustomerDTO;
 import thuyvtk.activity.laundry_customer.presenter.CustomerPresenter;
 import thuyvtk.activity.laundry_customer.view.CustomerView;
@@ -57,12 +58,13 @@ public class EditAccountActivity extends Activity implements CustomerView {
     }
 
     public void loadCustomerInfor() {
-        customerPresenter.getCustomerById();
+        SharePreferenceLib sharePreferenceLib =  new SharePreferenceLib();
+        CustomerDTO dto = sharePreferenceLib.getUser(this);
+        txtUsername.setText(dto.getCustomerName());
     }
 
     @Override
     public void returnCustomer(CustomerDTO customerDTO) {
-        System.out.println(customerDTO.getCustomerName());
-        txtUsername.setText(customerDTO.getCustomerName());
+        // do nothing
     }
 }
