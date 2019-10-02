@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import thuyvtk.activity.laundry_customer.R;
 import thuyvtk.activity.laundry_customer.fragment.AccountFragment;
@@ -23,32 +24,42 @@ public class EditAccountActivity extends Activity implements CustomerView {
     EditText txtUsername;
     EditText txtPhone;
     Button btnSave;
+    CustomerDTO dto;
+    CustomerPresenter customerPresenter;
 
     public EditAccountActivity() {
     }
-
-    CustomerPresenter customerPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
+        txtUsername = findViewById(R.id.txtUsername);
+        btnSave = findViewById(R.id.btnSave);
         customerPresenter = new CustomerPresenter(this);
-        loadCustomerInfor();
         imgBackActivity = findViewById(R.id.imgBackActivity);
+
+        loadCustomerInfor();
+
         imgBackActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditAccountActivity.this.finish();
             }
         });
-        txtUsername = findViewById(R.id.txtUsername);
-        btnSave = findViewById(R.id.btnSave);
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateCustomer("d8961124-f5dd-4124-8453-08d74555b235", txtUsername.getText().toString());
-                EditAccountActivity.this.finish();
+                if (dto != null) {
+                    String name = txtUsername.getText().toString();
+                    updateCustomer(dto.getCustomerId(), name);
+                    //update dto to save local
+                    dto.setCustomerName(name);
+                    EditAccountActivity.this.finish();
+                } else {
+                    Toast.makeText(EditAccountActivity.this, "EditAccount -null User", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -58,13 +69,20 @@ public class EditAccountActivity extends Activity implements CustomerView {
     }
 
     public void loadCustomerInfor() {
-        SharePreferenceLib sharePreferenceLib =  new SharePreferenceLib();
-        CustomerDTO dto = sharePreferenceLib.getUser(this);
+        SharePreferenceLib sharePreferenceLib = new SharePreferenceLib(this);
+        dto = sharePreferenceLib.getUser();
         txtUsername.setText(dto.getCustomerName());
     }
 
     @Override
     public void returnCustomer(CustomerDTO customerDTO) {
         // do nothing
+    }
+
+    @Override
+    public void updateSuccess() {
+        // update user in SharePreferent
+        SharePreferenceLib sharePreferenceLib = new SharePreferenceLib(this);
+        sharePreferenceLib.saveUser(dto);
     }
 }

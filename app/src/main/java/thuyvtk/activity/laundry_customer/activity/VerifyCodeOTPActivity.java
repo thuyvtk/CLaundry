@@ -111,7 +111,15 @@ public class VerifyCodeOTPActivity extends Activity implements CustomerView {
 
     @Override
     public void returnCustomer(CustomerDTO customerDTO) {
-        SharePreferenceLib sharePreferenceLib =  new SharePreferenceLib();
-        sharePreferenceLib.saveUser(customerDTO,this);
+        SharePreferenceLib sharePreferenceLib =  new SharePreferenceLib(this);
+        sharePreferenceLib.saveUser(customerDTO);
+        this.finish();
+        Intent intent =  new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void updateSuccess() {
+        // use in EditAccount Activity
     }
 }

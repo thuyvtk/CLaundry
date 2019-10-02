@@ -4,4 +4,5 @@ import thuyvtk.activity.laundry_customer.model.CustomerDTO;
 
 public interface CustomerView {
     void returnCustomer(CustomerDTO customerDTO);
+    void updateSuccess();
 }

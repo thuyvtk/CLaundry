@@ -19,7 +19,7 @@ import thuyvtk.activity.laundry_customer.repositories.ClientApi;
 import thuyvtk.activity.laundry_customer.services.CustomerService;
 
 public class CustomerServiceImpl implements CustomerService {
-    ClientApi clientApi =  new ClientApi();
+    ClientApi clientApi = new ClientApi();
 
     @Override
     public void getCustomerByFirebaseId(String id, final CallbackData<CustomerDTO> callbackData) {
@@ -74,15 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
                     if (response != null) {
                         if (response.code() == 200) {
                             try {
-                                String result = response.body().string();
-                                Type type = new TypeToken<CustomerDTO>() {
-                                }.getType();
-                                CustomerDTO responseResult = new Gson().fromJson(result, type);
-                                if (responseResult != null) {
-                                    callbackData.onSuccess(responseResult);
-                                } else {
-                                    callbackData.onFail("empty");
-                                }
+                                callbackData.onSuccess(null);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

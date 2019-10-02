@@ -33,7 +33,7 @@ public class CustomerPresenter {
         customerService.updateCustomer(new CustomerDTO(customerId, customerName,"thien@gmail.com","0965448599",1,"2019-09-30T08:05:51.236"), new CallbackData<CustomerDTO>() {
             @Override
             public void onSuccess(CustomerDTO customerDTO) {
-                System.out.println("Update success");
+                customerView.updateSuccess();
             }
 
             @Override
