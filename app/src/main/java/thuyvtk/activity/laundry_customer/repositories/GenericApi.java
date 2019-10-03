@@ -25,4 +25,7 @@ public interface GenericApi {
 
     @PUT(ConfigApi.Api.UPDATE_CUSTOMER)
     Call<ResponseBody> updateCustomer(@Body RequestBody customer);
+
+    @GET(ConfigApi.Api.ORDER_HISTORY)
+    Call<ResponseBody> getOrderHistory(@Query("Id") String userId);
 }

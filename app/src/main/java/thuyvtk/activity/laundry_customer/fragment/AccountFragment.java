@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.List;
 import java.util.zip.Inflater;
 
 import thuyvtk.activity.laundry_customer.R;
@@ -18,12 +19,14 @@ import thuyvtk.activity.laundry_customer.activity.EditAccountActivity;
 import thuyvtk.activity.laundry_customer.activity.LoginActivity;
 import thuyvtk.activity.laundry_customer.activity.MainActivity;
 import thuyvtk.activity.laundry_customer.library.SharePreferenceLib;
+import thuyvtk.activity.laundry_customer.model.OrderDTO;
+import thuyvtk.activity.laundry_customer.view.OrderHistoryView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AccountFragment extends Fragment {
-    Button btnAccount,btnLogout;
+public class AccountFragment extends Fragment implements OrderHistoryView {
+    Button btnAccount,btnLogout,btnHistory;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -32,6 +35,7 @@ public class AccountFragment extends Fragment {
     private void defineView(View view) {
         btnAccount = view.findViewById(R.id.btnAccount);
         btnLogout = view.findViewById(R.id.btnLogout);
+        btnHistory = view.findViewById(R.id.btnHistory);
     }
 
     @Override
@@ -58,7 +62,25 @@ public class AccountFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return view;
+        // view history
+
     }
 
+
+    @Override
+    public void loadOrderHistory(List<OrderDTO> orderList) {
+
+    }
+
+    @Override
+    public void onFail(String msg) {
+
+    }
 }

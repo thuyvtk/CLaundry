@@ -12,6 +12,7 @@ public class ConfigApi {
      String GET_ALL_STORE = "Store/GetAll";
      String GET_CUSTOMER_BY_FIREBASE_ID = "Customer/GetByUserID";
      String UPDATE_CUSTOMER = "Customer/UpdateCustomer";
+     String ORDER_HISTORY = "Order/History";
     }
 
 }

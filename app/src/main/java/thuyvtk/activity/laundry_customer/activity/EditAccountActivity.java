@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import thuyvtk.activity.laundry_customer.R;
@@ -27,6 +28,12 @@ public class EditAccountActivity extends Activity implements CustomerView {
     CustomerDTO dto;
     CustomerPresenter customerPresenter;
 
+    private void defineView() {
+        txtUsername = findViewById(R.id.txtUsername);
+        btnSave = findViewById(R.id.btnSave);
+        imgBackActivity = findViewById(R.id.imgBackActivity);
+    }
+
     public EditAccountActivity() {
     }
 
@@ -34,10 +41,7 @@ public class EditAccountActivity extends Activity implements CustomerView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
-        txtUsername = findViewById(R.id.txtUsername);
-        btnSave = findViewById(R.id.btnSave);
         customerPresenter = new CustomerPresenter(this);
-        imgBackActivity = findViewById(R.id.imgBackActivity);
 
         loadCustomerInfor();
 

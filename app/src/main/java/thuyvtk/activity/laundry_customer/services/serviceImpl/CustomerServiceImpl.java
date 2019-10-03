@@ -23,7 +23,6 @@ public class CustomerServiceImpl implements CustomerService {
     public void getCustomerByFirebaseId(String id, final CallbackData<CustomerDTO> callbackData) {
         Call<ResponseBody> serviceCall = clientApi.getGenericApi().getCustomerByFirebaseId(id);
         try {
-
             serviceCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -43,11 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
                                 e.printStackTrace();
                             }
                         } else {
-                            if(response.code() == 404){
-                               if(response.body().contentLength() == 0){
-
-                               }
-                            }
+                            callbackData.onFail("timeout");
                         }
 
                     }
