@@ -1,19 +1,13 @@
 package thuyvtk.activity.laundry_customer.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import thuyvtk.activity.laundry_customer.R;
-import thuyvtk.activity.laundry_customer.fragment.AccountFragment;
 import thuyvtk.activity.laundry_customer.library.SharePreferenceLib;
 import thuyvtk.activity.laundry_customer.model.CustomerDTO;
 import thuyvtk.activity.laundry_customer.presenter.CustomerPresenter;
@@ -42,7 +36,7 @@ public class EditAccountActivity extends Activity implements CustomerView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
         customerPresenter = new CustomerPresenter(this);
-
+        defineView();
         loadCustomerInfor();
 
         imgBackActivity.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +54,7 @@ public class EditAccountActivity extends Activity implements CustomerView {
                     updateCustomer(dto.getCustomerId(), name);
                     //update dto to save local
                     dto.setCustomerName(name);
-                    EditAccountActivity.this.finish();
+
                 } else {
                     Toast.makeText(EditAccountActivity.this, "EditAccount -null User", Toast.LENGTH_SHORT).show();
                 }
@@ -88,5 +82,6 @@ public class EditAccountActivity extends Activity implements CustomerView {
         // update user in SharePreferent
         SharePreferenceLib sharePreferenceLib = new SharePreferenceLib(this);
         sharePreferenceLib.saveUser(dto);
+        EditAccountActivity.this.finish();
     }
 }

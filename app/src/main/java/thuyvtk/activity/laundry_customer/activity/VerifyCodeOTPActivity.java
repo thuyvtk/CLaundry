@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,23 +39,34 @@ public class VerifyCodeOTPActivity extends Activity implements CustomerView {
     String phone;
     Button btnContinue;
     CustomerPresenter presenter;
+    LinearLayout ln_login_waiting;
+
+    private void definedView() {
+        txtCodeOTP = findViewById(R.id.txtCodeOTP);
+        btnContinue = findViewById(R.id.btnContinue);
+        ln_login_waiting =  findViewById(R.id.ln_login_waiting);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_code_otp);
-        txtCodeOTP = findViewById(R.id.txtCodeOTP);
+        definedView();
         phone = getIntent().getStringExtra("phone");
         sendRequest();
         presenter = new CustomerPresenter(this);
-        btnContinue = findViewById(R.id.btnContinue);
         mAuth = FirebaseAuth.getInstance();
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String code = txtCodeOTP.getText().toString();
-                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, code);
-                signInWithPhoneAuthCredential(credential);
+                if(!code.equals("")){
+                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, code);
+                    signInWithPhoneAuthCredential(credential);
+                    ln_login_waiting.setVisibility(View.VISIBLE);
+                }else{
+                    Toast.makeText(VerifyCodeOTPActivity.this, "Please enter sent code", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -88,33 +100,39 @@ public class VerifyCodeOTPActivity extends Activity implements CustomerView {
     };
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = task.getResult().getUser();
-                            Toast.makeText(VerifyCodeOTPActivity.this, user.getUid(), Toast.LENGTH_SHORT).show();
-                            String id = user.getUid();
-                            presenter.getCustomerByFirebaseId(id);
-                        } else {
-                            // Sign in failed, display a message and update the UI
+        try{
+            mAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                FirebaseUser user = task.getResult().getUser();
+                                Toast.makeText(VerifyCodeOTPActivity.this, user.getUid(), Toast.LENGTH_SHORT).show();
+                                String id = user.getUid();
+                                presenter.getCustomerByFirebaseId(id);
+                            } else {
+                                // Sign in failed, display a message and update the UI
 //                            Toast.makeText(MainActivity.this, "signing fail", Toast.LENGTH_SHORT).show();
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
 //                                Toast.makeText(MainActivity.this, "invalid code", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }catch (Exception e){
+            Toast.makeText(this, "Wrong login code", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
     public void returnCustomer(CustomerDTO customerDTO) {
-        SharePreferenceLib sharePreferenceLib =  new SharePreferenceLib(this);
+        SharePreferenceLib sharePreferenceLib = new SharePreferenceLib(this);
         sharePreferenceLib.saveUser(customerDTO);
+        ln_login_waiting.setVisibility(View.GONE);
         this.finish();
-        Intent intent =  new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
