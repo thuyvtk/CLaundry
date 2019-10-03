@@ -5,8 +5,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -45,9 +43,15 @@ public class CustomerServiceImpl implements CustomerService {
                                 e.printStackTrace();
                             }
                         } else {
-                            callbackData.onFail("timeout");
+                            if(response.code() == 404){
+                               if(response.body().contentLength() == 0){
+
+                               }
+                            }
                         }
+
                     }
+
                 }
 
                 @Override
@@ -59,6 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void updateCustomer(CustomerDTO customer, final CallbackData<CustomerDTO> callbackData) {
