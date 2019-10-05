@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
 import thuyvtk.activity.laundry_customer.R;
+import thuyvtk.activity.laundry_customer.adapter.StoreAdapter;
 import thuyvtk.activity.laundry_customer.model.StoreDTO;
 import thuyvtk.activity.laundry_customer.presenter.StorePresenter;
 import thuyvtk.activity.laundry_customer.view.StoreView;
@@ -39,71 +40,78 @@ public class HomeFragment extends Fragment implements StoreView {
     TextView lbServiceStuffed;
     TextView lbServiceDry;
     TabLayout tabStore;
+    StoreAdapter storeAdapter;
+    StorePresenter storePresenter;
+    ListView lvStore;
+
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    StorePresenter storePresenter;
-    ListView lvStore;
-    boolean isStart = false;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        storePresenter = new StorePresenter(this);
-        loadALlStore();
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+    private void defineView(View view) {
         lvStore = view.findViewById(R.id.lvStore);
         // service button
         btnAllService = view.findViewById(R.id.btnAllService);
+        btnWashService = view.findViewById(R.id.btnWashService);
+        btnShoesService = view.findViewById(R.id.btnShoesService);
+        btnStuffedService = view.findViewById(R.id.btnStuffedService);
+        btnDryClearService = view.findViewById(R.id.btnDryClearService);
+        lbServiceAll = view.findViewById(R.id.lbServiceAll);
+        lbServiceWash = view.findViewById(R.id.lbServiceWash);
+        lbServiceShoes = view.findViewById(R.id.lbServiceShoes);
+        lbServiceStuffed = view.findViewById(R.id.lbServiceStuffed);
+        lbServiceDry = view.findViewById(R.id.lbServiceDry);
+        tabStore = view.findViewById(R.id.tabStore);
+    }
+
+    private void setClickListener() {
         btnAllService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickService(btnAllService);
             }
         });
-        btnWashService = view.findViewById(R.id.btnWashService);
         btnWashService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickService(btnWashService);
             }
         });
-        btnShoesService = view.findViewById(R.id.btnShoesService);
         btnShoesService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickService(btnShoesService);
             }
         });
-        btnStuffedService = view.findViewById(R.id.btnStuffedService);
         btnStuffedService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickService(btnStuffedService);
             }
         });
-        btnDryClearService = view.findViewById(R.id.btnDryClearService);
         btnDryClearService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickService(btnDryClearService);
             }
         });
-        // label service
-        lbServiceAll = view.findViewById(R.id.lbServiceAll);
-        lbServiceWash = view.findViewById(R.id.lbServiceWash);
-        lbServiceShoes = view.findViewById(R.id.lbServiceShoes);
-        lbServiceStuffed = view.findViewById(R.id.lbServiceStuffed);
-        lbServiceDry = view.findViewById(R.id.lbServiceDry);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        defineView(view);
+        setClickListener();
         clickService(btnAllService);
         // tab service
-        tabStore = view.findViewById(R.id.tabStore);
         tabStore.addTab(tabStore.newTab().setText("Recent"));
         tabStore.addTab(tabStore.newTab().setText("Top"));
         tabStore.addTab(tabStore.newTab().setText("Near"));
-
+        //load all store
+        storePresenter = new StorePresenter(this);
+        loadALlStore();
         return view;
     }
 
@@ -113,14 +121,10 @@ public class HomeFragment extends Fragment implements StoreView {
 
     @Override
     public void returnAllStore(ArrayList<StoreDTO> listStore) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
-        ArrayList<String> list = new ArrayList<>();
-        for (StoreDTO dto : listStore) {
-            System.out.println(dto.getName());
-            list.add(dto.getName());
+        if (listStore.size() > 0) {
+            storeAdapter = new StoreAdapter(getContext(), listStore);
+            lvStore.setAdapter(storeAdapter);
         }
-        adapter.addAll(list);
-        lvStore.setAdapter(adapter);
     }
 
     public void clickService(ImageButton imageButton) {

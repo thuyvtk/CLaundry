@@ -8,4 +8,6 @@
     <color name="black">#000000</color>
     <color name="darker">#f2f2f2</color>
     <color name="blue">#80b3ff</color>
+    <color name="title">#232F34</color>
+    <color name="sub_title">#5c5c5c</color>
 </resources>

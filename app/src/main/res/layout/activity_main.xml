@@ -8,9 +8,8 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/main_fragment"
-        class="thuyvtk.activity.laundry_customer.fragment.AccountFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="6" />

@@ -27,6 +27,7 @@ public class MainActivity extends FragmentActivity implements BottomNavigationVi
         setContentView(R.layout.activity_main);
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setOnNavigationItemSelectedListener(this);
+        loadFrament( new AccountFragment());
     }
 
     @Override
@@ -37,13 +38,13 @@ public class MainActivity extends FragmentActivity implements BottomNavigationVi
                 fragment = new HomeFragment();
                 break;
             case R.id.navigation_notification:
-                fragment =  new HomeFragment();
+//                fragment =  new HomeFragment();
                 break;
             case R.id.navigation_oder:
                 fragment =  new OrderFragment();
                 break;
             case R.id.navigation_account:
-                fragment = new AccountFragment();
+//                fragment = new AccountFragment();
                 break;
             default:
                 fragment = new AccountFragment();
