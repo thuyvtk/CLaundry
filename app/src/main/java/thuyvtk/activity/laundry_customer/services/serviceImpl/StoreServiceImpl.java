@@ -60,5 +60,122 @@ public class StoreServiceImpl implements StoreService {
         }
     }
 
+    @Override
+    public void getRecentStore(String serviceId, String customerId, final CallbackData<ArrayList<StoreDTO>> callbackData) {
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getRecentStore(serviceId,customerId);
+        try {
+            serviceCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response != null && response.body() != null) {
+                        if (response.code() == 200) {
+                            try {
+                                String result = response.body().string();
+                                Type type = new TypeToken<ArrayList<StoreDTO>>() {
+                                }.getType();
+                                ArrayList<StoreDTO> responseResult = new Gson().fromJson(result, type);
+                                if (responseResult != null) {
+                                    callbackData.onSuccess(responseResult);
+                                } else {
+                                    callbackData.onFail("empty");
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            callbackData.onFail("timeout");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    public void getTopStore(String serviceId, final CallbackData<ArrayList<StoreDTO>> callbackData) {
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getTopStore(serviceId);
+        try {
+            serviceCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response != null && response.body() != null) {
+                        if (response.code() == 200) {
+                            try {
+                                String result = response.body().string();
+                                Type type = new TypeToken<ArrayList<StoreDTO>>() {
+                                }.getType();
+                                ArrayList<StoreDTO> responseResult = new Gson().fromJson(result, type);
+                                if (responseResult != null) {
+                                    callbackData.onSuccess(responseResult);
+                                } else {
+                                    callbackData.onFail("empty");
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            callbackData.onFail("timeout");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    public void getNearbyStore(String serviceId, double latitude, double longitude, final CallbackData<ArrayList<StoreDTO>> callbackData) {
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getNearbyStore(serviceId,latitude,longitude);
+        try {
+            serviceCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response != null && response.body() != null) {
+                        if (response.code() == 200) {
+                            try {
+                                String result = response.body().string();
+                                Type type = new TypeToken<ArrayList<StoreDTO>>() {
+                                }.getType();
+                                ArrayList<StoreDTO> responseResult = new Gson().fromJson(result, type);
+                                if (responseResult != null) {
+                                    callbackData.onSuccess(responseResult);
+                                } else {
+                                    callbackData.onFail("empty");
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            callbackData.onFail("timeout");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception e) {
+
+        }
+    }
+
 
 }

@@ -43,8 +43,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.1.0'
     implementation 'com.google.firebase:firebase-firestore:21.1.1'
 
-    // Getting a "Could not find" error? Make sure that you've added
-    // Google's Maven repository to your root-level build.gradle file
+    // Google map API dependency
+    implementation 'com.google.android.libraries.places:places:1.1.0'
 
 }
 

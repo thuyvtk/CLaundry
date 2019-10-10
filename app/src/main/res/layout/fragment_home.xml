@@ -6,9 +6,33 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="25px"
     android:layout_marginRight="25px"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity">
+    <LinearLayout
+        android:id="@+id/ln_home_waiting"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:progressTint="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Loading ..."
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
     <!--    SearchBar-->
     <LinearLayout
         android:id="@+id/search_bar"
@@ -195,8 +219,6 @@
             android:text="@string/service_dryClear"
             android:textColor="#bac2c4"
             android:textSize="12sp" />
-
-
     </LinearLayout>
 
     <!--        Tab service-->
@@ -204,23 +226,14 @@
         android:id="@+id/tabStore"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginTop="40px"
+        android:layout_marginBottom="50px"
         android:background="@drawable/background_tab"
         app:tabGravity="fill"
         app:tabIndicatorColor="#4d4dff"
         app:tabIndicatorHeight="2sp"
         app:tabMode="fixed"
-        app:tabTextAppearance="@style/CustomTabText"
-        android:layout_marginTop="40px"
-        android:layout_marginBottom="50px"/>
-    <!--            android:background="@drawable/background_tab"-->
-
-    <!--    <android.support.v4.view.ViewPager-->
-    <!--        android:id="@+id/viewpager"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_weight="1"-->
-    <!--        app:layout_behavior="thuy"  />-->
-    <!--    List store-->
+        app:tabTextAppearance="@style/CustomTabText" />
     <ListView
         android:id="@+id/lvStore"
         android:layout_width="match_parent"

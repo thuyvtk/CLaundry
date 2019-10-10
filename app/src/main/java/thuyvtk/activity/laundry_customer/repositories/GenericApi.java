@@ -20,6 +20,15 @@ public interface GenericApi {
     @GET(ConfigApi.Api.GET_ALL_STORE)
     Call<ResponseBody> getAllStore();
 
+    @GET(ConfigApi.Api.GET_RECENT_STORE)
+    Call<ResponseBody> getRecentStore( @Query("serviceId") String serviceId, @Query("customerId")String customerId);
+
+    @GET(ConfigApi.Api.GET_TOP_STORE)
+    Call<ResponseBody> getTopStore(@Query("serviceId")String serviceId);
+
+    @GET(ConfigApi.Api.GET_NEARBY_STORE)
+    Call<ResponseBody> getNearbyStore(@Query("serviceId")String serviceId, @Query("latitude")double latitude, @Query("longitude") double longitude);
+
     @GET(ConfigApi.Api.GET_CUSTOMER_BY_FIREBASE_ID)
     Call<ResponseBody> getCustomerByFirebaseId(@Query("Id")String id);
 
@@ -28,4 +37,7 @@ public interface GenericApi {
 
     @GET(ConfigApi.Api.ORDER_HISTORY)
     Call<ResponseBody> getOrderHistory(@Query("Id") String userId);
+
+    @GET(ConfigApi.Api.GET_ALL_SERVICE)
+    Call<ResponseBody> getAllService();
 }

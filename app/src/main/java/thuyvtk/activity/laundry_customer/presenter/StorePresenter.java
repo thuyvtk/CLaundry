@@ -29,4 +29,46 @@ public class StorePresenter {
             }
         });
     }
+
+    public void getRecentStoreWithCurrentService(String serviceId, String customerId){
+        storeService.getRecentStore(serviceId, customerId, new CallbackData<ArrayList<StoreDTO>>() {
+            @Override
+            public void onSuccess(ArrayList<StoreDTO> storeDTOS) {
+                storeView.returnAllStore(storeDTOS);
+            }
+
+            @Override
+            public void onFail(String message) {
+                storeView.loadStoreFail(message);
+            }
+        });
+    }
+
+    public void getTopStoreWithCurrentService(String serviceId){
+        storeService.getTopStore(serviceId, new CallbackData<ArrayList<StoreDTO>>() {
+            @Override
+            public void onSuccess(ArrayList<StoreDTO> storeDTOS) {
+                storeView.returnAllStore(storeDTOS);
+            }
+
+            @Override
+            public void onFail(String message) {
+                storeView.loadStoreFail(message);
+            }
+        });
+    }
+
+    public void getNearbyStoreWithCurrentService(String serviceId, double latitude, double longitude){
+        storeService.getNearbyStore(serviceId, latitude, longitude, new CallbackData<ArrayList<StoreDTO>>() {
+            @Override
+            public void onSuccess(ArrayList<StoreDTO> storeDTOS) {
+                storeView.returnAllStore(storeDTOS);
+            }
+
+            @Override
+            public void onFail(String message) {
+                storeView.loadStoreFail(message);
+            }
+        });
+    }
 }

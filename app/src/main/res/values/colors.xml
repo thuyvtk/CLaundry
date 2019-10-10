@@ -10,4 +10,6 @@
     <color name="blue">#80b3ff</color>
     <color name="title">#232F34</color>
     <color name="sub_title">#5c5c5c</color>
+    <color name="lightGrey">#D3D3D3</color>
+    <color name="balance_green">#00a550</color>
 </resources>
