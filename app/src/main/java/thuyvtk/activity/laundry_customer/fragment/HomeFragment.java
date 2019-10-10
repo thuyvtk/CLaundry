@@ -3,6 +3,7 @@ package thuyvtk.activity.laundry_customer.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -64,7 +65,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
     CustomerDTO dto;
     ArrayList<ImageButton> listButton = new ArrayList<>();
     ArrayList<TextView> listLabel = new ArrayList<>();
-    LocationLibrary locationLibrary =  new LocationLibrary(getContext(),getActivity());
+    LocationLibrary locationLibrary;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -81,6 +82,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         setUpTab();
         serviceTypePresenter = new ServiceTypePresenter(this);
         loadAllService();
+        locationLibrary =  new LocationLibrary(getContext(),getActivity());
         return view;
     }
 
@@ -189,13 +191,14 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
                 int position = tab.getPosition();
                 switch (position) {
                     case 0:
-                  //      storePresenter.getRecentStoreWithCurrentService(currentServiceTypeId, dto.getCustomerId());
+                        storePresenter.getRecentStoreWithCurrentService(currentServiceTypeId, dto.getCustomerId());
                         break;
                     case 1:
                     //    storePresenter.getTopStoreWithCurrentService(currentServiceTypeId);
                         break;
                     case 2:
                         LatLng latLng = locationLibrary.getCurrentLocation();
+                       List<Address> address = locationLibrary.getCurrentAddress();
                         if(latLng != null){
                   //          storePresenter.getNearbyStoreWithCurrentService(currentServiceTypeId, latLng.latitude, latLng.longitude);
                         }else{
