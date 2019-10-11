@@ -21,7 +21,7 @@ public interface GenericApi {
     Call<ResponseBody> getAllStore();
 
     @GET(ConfigApi.Api.GET_RECENT_STORE)
-    Call<ResponseBody> getRecentStore( @Query("serviceId") String serviceId, @Query("customerId")String customerId);
+    Call<ResponseBody> getRecentStore( @Query("ServiceId") String serviceId, @Query("CustomerId")String customerId);
 
     @GET(ConfigApi.Api.GET_TOP_STORE)
     Call<ResponseBody> getTopStore(@Query("serviceId")String serviceId);
