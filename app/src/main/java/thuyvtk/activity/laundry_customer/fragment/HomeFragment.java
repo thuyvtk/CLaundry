@@ -54,6 +54,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
     TextView lbServiceShoes;
     TextView lbServiceStuffed;
     TextView lbServiceDry;
+    TextView txtAddress;
     LinearLayout ln_home_waitting;
     TabLayout tabStore;
     StoreAdapter storeAdapter;
@@ -83,7 +84,18 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         serviceTypePresenter = new ServiceTypePresenter(this);
         loadAllService();
         locationLibrary =  new LocationLibrary(getContext(),getActivity());
+        setAddressTextBox();
         return view;
+    }
+
+    private void setAddressTextBox() {
+        List<Address> address = locationLibrary.getCurrentAddress();
+        String addressLine = address.get(0).getAddressLine(0);
+        if(addressLine.length()> 35){
+            String temp =addressLine.replace(addressLine.substring(35),"...");
+            addressLine = temp;
+        }
+        txtAddress.setText(addressLine);
     }
 
     @Override
@@ -96,6 +108,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     StoreDTO dto = (StoreDTO) storeAdapter.getItem(position);
                     Intent intent =  new Intent(getContext(), StoreDetailActivity.class);
+                    intent.putExtra("storeId",dto.getStore_id());
                     startActivity(intent);
                 }
             });
@@ -140,6 +153,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         lbServiceShoes = view.findViewById(R.id.lbServiceShoes);
         lbServiceStuffed = view.findViewById(R.id.lbServiceStuffed);
         lbServiceDry = view.findViewById(R.id.lbServiceDry);
+        txtAddress = view.findViewById(R.id.txtAddress);
         tabStore = view.findViewById(R.id.tabStore);
         ln_home_waitting = view.findViewById(R.id.ln_home_waiting);
     }
