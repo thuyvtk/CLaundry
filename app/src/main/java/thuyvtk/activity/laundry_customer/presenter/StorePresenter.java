@@ -71,4 +71,19 @@ public class StorePresenter {
             }
         });
     }
+
+    // todo search store by name
+    public void searchStoreByName(String storeName){
+        storeService.searchStoreByName(storeName, new CallbackData<ArrayList<StoreDTO>>() {
+            @Override
+            public void onSuccess(ArrayList<StoreDTO> storeDTOS) {
+                storeView.searchStoreByName(storeDTOS);
+            }
+
+            @Override
+            public void onFail(String message) {
+                storeView.searchStoreByNameFail(message);
+            }
+        });
+    }
 }

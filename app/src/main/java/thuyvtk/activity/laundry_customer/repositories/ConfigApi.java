@@ -15,7 +15,6 @@ public class ConfigApi {
         String GET_TOP_STORE =  "Store/GetTopStore";
         String GET_NEARBY_STORE = "Store/GetNearByStore";
         String SEARCH_STORE_BY_NAME =  "Store/SearchStoreByName";
-        String SEARCH_STORE_BY_ADDRESS = "Store/SearchStoreByAddress";
         //customer
         String GET_CUSTOMER_BY_FIREBASE_ID = "Customer/GetByUserID";
         String UPDATE_CUSTOMER = "Customer/UpdateCustomer";

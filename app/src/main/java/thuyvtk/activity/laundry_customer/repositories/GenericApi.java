@@ -29,6 +29,9 @@ public interface GenericApi {
     @GET(ConfigApi.Api.GET_NEARBY_STORE)
     Call<ResponseBody> getNearbyStore(@Query("serviceId")String serviceId, @Query("latitude")double latitude, @Query("longitude") double longitude);
 
+    @GET(ConfigApi.Api.SEARCH_STORE_BY_NAME)
+    Call<ResponseBody> searchStoreByName(@Query("storeName")String storeName);
+
     @GET(ConfigApi.Api.GET_CUSTOMER_BY_FIREBASE_ID)
     Call<ResponseBody> getCustomerByFirebaseId(@Query("Id")String id);
 

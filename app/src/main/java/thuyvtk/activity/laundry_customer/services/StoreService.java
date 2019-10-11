@@ -11,4 +11,5 @@ public interface StoreService {
     void getRecentStore(String serviceId, String customerId,CallbackData<ArrayList<StoreDTO>> callBackData);
     void getTopStore(String serviceId,CallbackData<ArrayList<StoreDTO>> callBackData);
     void getNearbyStore(String serviceId, double latitude, double longitude,CallbackData<ArrayList<StoreDTO>> callBackData);
+    void searchStoreByName(String storeName,CallbackData<ArrayList<StoreDTO>> callbackData);
 }
