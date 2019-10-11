@@ -25,7 +25,7 @@
                     android:src="@drawable/ic_clothes" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_marginLeft="16dp">
@@ -53,6 +53,17 @@
                         android:textColor="@color/balance_green"
                         android:textSize="13dp"
                         android:text="100.000 VND"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center">
+                   <ImageButton
+                       android:background="@color/white"
+                       android:src="@drawable/ic_add_circle_blue_24dp"
+                       android:id="@+id/imgBAdd"
+                       android:layout_width="50dp"
+                       android:layout_height="50dp"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
