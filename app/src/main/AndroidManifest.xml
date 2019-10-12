@@ -14,20 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.ShoppingCartActivity"></activity>
         <activity android:name=".activity.StoreDetailActivity">
-
-        </activity>
-        <activity android:name=".activity.VerifyCodeOTPActivity" />
-        <activity android:name=".activity.LoginByPhoneActivity"></activity>
-        <activity android:name=".activity.EditAccountActivity" />
-        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.VerifyCodeOTPActivity" />
+        <activity android:name=".activity.LoginByPhoneActivity" />
+        <activity android:name=".activity.EditAccountActivity" />
+        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

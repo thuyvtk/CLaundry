@@ -47,7 +47,7 @@ public class ServiceTypeAdapter extends BaseAdapter {
         ListView lvService = convertView.findViewById(R.id.lvService);
         ServiceTypeDTO dto = (ServiceTypeDTO) getItem(position);
         txtServiceName.setText(dto.getName());
-        serviceAdapter = new ServiceAdapter(context,dto.getListService());
+        serviceAdapter = new ServiceAdapter(context,dto.getListService(),0);
         lvService.setAdapter(serviceAdapter);
         return convertView;
     }

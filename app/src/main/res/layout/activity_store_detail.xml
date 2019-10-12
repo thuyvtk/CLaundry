@@ -48,84 +48,180 @@
        </LinearLayout>
 
     </LinearLayout>
-    <ScrollView
-        android:layout_weight="2"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:orientation="vertical"
-                android:background="@drawable/ic_launcher_background">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="bottom">
+                    android:layout_height="250dp"
+                    android:background="@drawable/ic_launcher_background"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <LinearLayout
-                            android:layout_marginBottom="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/txtStoreName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="WashGo - Gat Say Ngay"
-                                android:textColor="@color/white"
-                                android:textSize="16dp"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:id="@+id/txtStoreAddress"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="114/2A Thanh Thai, Quan 11, TP.HCM"
-                                android:textColor="@color/white"
-                                android:textSize="14dp" />
-                        </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:paddingRight="10dp">
+                            android:orientation="horizontal">
+
                             <LinearLayout
-                                android:background="@drawable/radius_5_button_green"
-                                android:padding="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_star_border_white_24dp"/>
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:orientation="vertical">
+
                                 <TextView
-                                    android:id="@+id/txtStoreRate"
+                                    android:id="@+id/txtStoreName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:text="WashGo - Gat Say Ngay"
+                                    android:textColor="@color/white"
                                     android:textSize="16dp"
-                                    android:textStyle="bold"
-                                    android:text="3.0"
-                                    android:textColor="@color/white"/>
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/txtStoreAddress"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="114/2A Thanh Thai, Quan 11, TP.HCM"
+                                    android:textColor="@color/white"
+                                    android:textSize="14dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:paddingRight="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/radius_5_button_green"
+                                    android:gravity="center"
+                                    android:padding="5dp">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_star_border_white_24dp" />
+
+                                    <TextView
+                                        android:id="@+id/txtStoreRate"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="3.0"
+                                        android:textColor="@color/white"
+                                        android:textSize="16dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|left">
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time Delivery:"
+                        android:textSize="16dp"
+                        android:textColor="@color/balance_green"/>
+                    <LinearLayout
+                        android:id="@+id/ln_timeDelivery"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left">
+                        <ImageView
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_access_time_black_24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"/>
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/timeDelivery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14dp"
+                            android:text="9:45"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right">
+                            <ImageView
+                                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ln_dateDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left">
+                        <ImageView
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_date_range_black_24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"/>
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/dateDelivery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14dp"
+                            android:text="12/10/2019"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right">
+                            <ImageView
+                                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/lvServiceType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
             </LinearLayout>
-            <ListView
-                android:id="@+id/lvServiceType"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+
+        </ScrollView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/btnShoppingCart"
+                android:src="@drawable/ic_add_circle_blue_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_gravity="bottom|right"/>
         </LinearLayout>
 
-    </ScrollView>
+    </RelativeLayout>
+
 
 
 </LinearLayout>

@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         List<Address> address = locationLibrary.getCurrentAddress();
         String addressLine = address.get(0).getAddressLine(0);
         if(addressLine.length()> 35){
-            String temp =addressLine.replace(addressLine.substring(35),"...");
+            String temp =addressLine.replace(addressLine.substring(35 ),"...");
             addressLine = temp;
         }
         txtAddress.setText(addressLine);
@@ -117,6 +117,16 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
 
     @Override
     public void loadStoreFail(String message) {
+
+    }
+
+    @Override
+    public void searchStoreByName(ArrayList<StoreDTO> listStore) {
+
+    }
+
+    @Override
+    public void searchStoreByNameFail(String message) {
 
     }
 

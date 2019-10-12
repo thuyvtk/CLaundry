@@ -8,6 +8,9 @@ public class ServiceDTO implements Serializable {
     private String name;
     private String description;
     private double price;
+    private int quantity = 1;
+
+
 
     public ServiceDTO(String id, String image, String name, String description, double price) {
         this.id = id;
@@ -62,5 +65,12 @@ public class ServiceDTO implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

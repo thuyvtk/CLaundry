@@ -15,10 +15,13 @@ import static android.content.Context.MODE_PRIVATE;
 public class SharePreferenceLib {
     final String SHARE_NAME = "SHARED";
     final String JSON_NAME = "USER";
+    final String CART_NAME = "CART";
     SharedPreferences sharedPreferences;
+    Context context;
 
     public SharePreferenceLib(Context context) {
         sharedPreferences = context.getSharedPreferences(SHARE_NAME, MODE_PRIVATE);
+        this.context = context;
     }
 
     public void saveUser(CustomerDTO user) {
@@ -40,6 +43,30 @@ public class SharePreferenceLib {
     public void logouṭ() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(JSON_NAME);
+        editor.commit();
+    }
+
+    public CartDTO getShoppingCart() {
+        String json = sharedPreferences.getString(CART_NAME, "");
+        if(json == null){
+            // if there is no shopping cart create one.
+            CartDTO dto = new CartDTO(context,getUser());
+            saveShoppingCart(dto);
+            return dto;
+        }
+        else{
+            Type type = new TypeToken<CartDTO>() {
+            }.getType();
+            CartDTO dto = new Gson().fromJson(json, type);
+            return dto;
+        }
+    }
+
+    public void saveShoppingCart(CartDTO dto) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(dto);
+        editor.putString(CART_NAME, json);
         editor.commit();
     }
 }
