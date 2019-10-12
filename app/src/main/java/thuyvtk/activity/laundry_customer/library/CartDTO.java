@@ -29,10 +29,8 @@ public class CartDTO implements Serializable {
         this.listStore = listStore;
     }
 
-    private Context context;
 
-    public CartDTO(Context context, CustomerDTO customer) {
-        this.context = context;
+    public CartDTO(CustomerDTO customer) {
         this.customer = customer;
     }
 
@@ -49,7 +47,7 @@ public class CartDTO implements Serializable {
         if(listStore.containsKey(serviceDTO.getId())){
            listStore.remove(serviceDTO.getId());
         }else{
-            Toast.makeText(context, "Remove fail", Toast.LENGTH_SHORT).show();
+
         }
     }
     public double getTotalPrice(){

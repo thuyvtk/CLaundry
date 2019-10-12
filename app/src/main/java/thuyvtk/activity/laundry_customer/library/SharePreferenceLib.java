@@ -48,9 +48,9 @@ public class SharePreferenceLib {
 
     public CartDTO getShoppingCart() {
         String json = sharedPreferences.getString(CART_NAME, "");
-        if(json == null){
+        if(json == null || json.equals("")){
             // if there is no shopping cart create one.
-            CartDTO dto = new CartDTO(context,getUser());
+            CartDTO dto = new CartDTO(getUser());
             saveShoppingCart(dto);
             return dto;
         }
