@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReceiptDetailActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/border_bottom"
+        android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtCustomerReceipt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Vo Thi Kim Thuy - 0378034064"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+        <TextView
+            android:textColor="@color/blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Khu cong nghe cao, Q9, TP.HCM"
+            android:textSize="14dp"/>
+
+    </LinearLayout>
+    <ListView
+        android:id="@+id/lvReceipt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    
+</LinearLayout>
