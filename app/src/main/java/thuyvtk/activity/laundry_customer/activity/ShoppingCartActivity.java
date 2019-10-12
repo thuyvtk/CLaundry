@@ -39,12 +39,11 @@ public class ShoppingCartActivity extends AppCompatActivity implements StoreAdap
             lvCartItem.setAdapter(serviceAdapter);
         }
         txtCustomerName.setText(dto.getCustomer().getCustomerName());
-
+        txtTotalPrice.setText(dto.getTotalPrice()+"");
     }
 
     @Override
     public void onRemoveFromCart(double totalPrice) {
         txtTotalPrice.setText(totalPrice + "");
     }
-    // todo done here
 }

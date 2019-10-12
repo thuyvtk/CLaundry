@@ -80,7 +80,6 @@ public class StoreDetailActivity extends AppCompatActivity implements DatePicker
                 timePickerDialog.show();
             }
         });
-
         ln_dateDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
