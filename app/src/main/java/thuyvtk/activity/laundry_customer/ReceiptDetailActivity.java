@@ -23,13 +23,19 @@ import thuyvtk.activity.laundry_customer.adapter.ServiceAdapter;
 import thuyvtk.activity.laundry_customer.library.CartDTO;
 import thuyvtk.activity.laundry_customer.library.LocationLibrary;
 import thuyvtk.activity.laundry_customer.library.SharePreferenceLib;
+import thuyvtk.activity.laundry_customer.model.OrderDTO;
+import thuyvtk.activity.laundry_customer.model.OrderServiceDTO;
 import thuyvtk.activity.laundry_customer.model.ServiceDTO;
+import thuyvtk.activity.laundry_customer.services.OrderService;
 
 public class ReceiptDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    TextView timeDelivery, dateDelivery, txtTotalReceipt,txtCustomerReceipt,txtAddress;
+    TextView timeDelivery, dateDelivery, txtTotalReceipt, txtCustomerReceipt, txtAddress;
     LinearLayout ln_timeDelivery, ln_dateDelivery;
     ListView lvReceipt;
     SharePreferenceLib sharePreferenceLib;
+    ArrayList<ServiceDTO> listService;
+    CartDTO cartDTO;
+    String PENDING = "pending";
 
     private void defineView() {
         timeDelivery = findViewById(R.id.timeDelivery);
@@ -49,28 +55,37 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         defineView();
         setTime();
         sharePreferenceLib = new SharePreferenceLib(this);
-        CartDTO dto = sharePreferenceLib.getShoppingCart();
-        if (dto != null) {
-            ArrayList<ServiceDTO> listService = new ArrayList<>(dto.getListStore().values());
+        cartDTO = sharePreferenceLib.getShoppingCart();
+        if (cartDTO != null) {
+            listService = new ArrayList<>(cartDTO.getListStore().values());
             ServiceAdapter serviceAdapter = new ServiceAdapter(this, listService, 1);
             lvReceipt.setAdapter(serviceAdapter);
         }
-        txtCustomerReceipt.setText(dto.getCustomer().getCustomerName());
-        txtTotalReceipt.setText(dto.getTotalPrice()+"");
+        txtCustomerReceipt.setText(cartDTO.getCustomer().getCustomerName());
+        txtTotalReceipt.setText(cartDTO.getTotalPrice() + "");
         setAddressTextBox();
 
     }
+
     private void setAddressTextBox() {
-       LocationLibrary locationLibrary =  new LocationLibrary(getApplicationContext(),this);
+        LocationLibrary locationLibrary = new LocationLibrary(getApplicationContext(), this);
         List<Address> address = locationLibrary.getCurrentAddress();
         String addressLine = address.get(0).getAddressLine(0);
-        if(addressLine.length()> 35){
-            String temp =addressLine.replace(addressLine.substring(35 ),"...");
+        if (addressLine.length() > 35) {
+            String temp = addressLine.replace(addressLine.substring(35), "...");
             addressLine = temp;
         }
         txtAddress.setText(addressLine);
     }
+
     public void clickToOrder(View view) {
+        ArrayList<OrderServiceDTO> listOrder = new ArrayList<>();
+        for (ServiceDTO service: listService) {
+            OrderServiceDTO dto = new OrderServiceDTO(service.getQuantity(), (float) service.getPrice(),service.getId());
+            listOrder.add(dto);
+        }
+        Date takeTime =
+        OrderDTO orderDTO = new OrderDTO(cartDTO.getTotalPrice(),PENDING,cartDTO.getCustomer().getCustomerId(),)
     }
 
     private void setTime() {
