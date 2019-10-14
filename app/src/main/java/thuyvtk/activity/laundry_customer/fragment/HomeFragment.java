@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
     TextView lbServiceStuffed;
     TextView lbServiceDry;
     TextView txtAddress;
-    LinearLayout ln_home_waitting;
+    LinearLayout ln_home_waitting, ln_store_waitting;
     TabLayout tabStore;
     StoreAdapter storeAdapter;
     StorePresenter storePresenter;
@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         setUpTab();
         serviceTypePresenter = new ServiceTypePresenter(this);
         loadAllService();
-        locationLibrary =  new LocationLibrary(getContext(),getActivity());
+        locationLibrary = new LocationLibrary(getContext(), getActivity());
         setAddressTextBox();
         return view;
     }
@@ -91,8 +91,8 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
     private void setAddressTextBox() {
         List<Address> address = locationLibrary.getCurrentAddress();
         String addressLine = address.get(0).getAddressLine(0);
-        if(addressLine.length()> 35){
-            String temp =addressLine.replace(addressLine.substring(35 ),"...");
+        if (addressLine.length() > 35) {
+            String temp = addressLine.replace(addressLine.substring(35), "...");
             addressLine = temp;
         }
         txtAddress.setText(addressLine);
@@ -100,24 +100,23 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
 
     @Override
     public void returnAllStore(ArrayList<StoreDTO> listStore) {
-        if (listStore.size() > 0) {
             storeAdapter = new StoreAdapter(getContext(), listStore);
             lvStore.setAdapter(storeAdapter);
             lvStore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     StoreDTO dto = (StoreDTO) storeAdapter.getItem(position);
-                    Intent intent =  new Intent(getContext(), StoreDetailActivity.class);
-                    intent.putExtra("storeId",dto.getStore_id());
+                    Intent intent = new Intent(getContext(), StoreDetailActivity.class);
+                    intent.putExtra("storeId", dto.getStore_id());
                     startActivity(intent);
                 }
             });
-        }
+        ln_store_waitting.setVisibility(View.GONE);
     }
 
     @Override
     public void loadStoreFail(String message) {
-
+        ln_store_waitting.setVisibility(View.GONE);
     }
 
     @Override
@@ -136,11 +135,12 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         listService.add(0, new ServiceTypeDTO(SERVICE_ALL_ID, "all"));
         storePresenter.getRecentStoreWithCurrentService(currentServiceTypeId, dto.getCustomerId());
         ln_home_waitting.setVisibility(View.GONE);
+        ln_store_waitting.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void loadServiceFail(String message) {
-
+        ln_home_waitting.setVisibility(View.GONE);
     }
 
 
@@ -166,6 +166,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         txtAddress = view.findViewById(R.id.txtAddress);
         tabStore = view.findViewById(R.id.tabStore);
         ln_home_waitting = view.findViewById(R.id.ln_home_waiting);
+        ln_store_waitting = view.findViewById(R.id.ln_store_waiting);
     }
 
     private void setClickListener() {
@@ -216,16 +217,18 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
                 switch (position) {
                     case 0:
                         storePresenter.getRecentStoreWithCurrentService(currentServiceTypeId, dto.getCustomerId());
+                        ln_store_waitting.setVisibility(View.VISIBLE);
                         break;
                     case 1:
-                    //    storePresenter.getTopStoreWithCurrentService(currentServiceTypeId);
+                        storePresenter.getTopStoreWithCurrentService(currentServiceTypeId);
+                        ln_store_waitting.setVisibility(View.VISIBLE);
                         break;
                     case 2:
                         LatLng latLng = locationLibrary.getCurrentLocation();
-                       List<Address> address = locationLibrary.getCurrentAddress();
-                        if(latLng != null){
-                  //          storePresenter.getNearbyStoreWithCurrentService(currentServiceTypeId, latLng.latitude, latLng.longitude);
-                        }else{
+                        if (latLng != null) {
+                            storePresenter.getNearbyStoreWithCurrentService(currentServiceTypeId, latLng.latitude, latLng.longitude);
+                            ln_store_waitting.setVisibility(View.VISIBLE);
+                        } else {
                             Toast.makeText(getContext(), "location not defined", Toast.LENGTH_SHORT).show();
                         }
                         break;
@@ -243,7 +246,6 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
             }
         });
     }
-
 
 
     private void addButtonAndLable() {
@@ -286,7 +288,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
     private void activate(int index) {
         listButton.get(index).setBackground(getResources().getDrawable(R.drawable.boder_cycle_red));
         listLabel.get(index).setTextColor(Color.parseColor("#c60000"));
-        setCurrentService(listLabel.get(index).toString());
+        setCurrentService(listLabel.get(index).getText().toString());
         listButton.remove(index);
         listLabel.remove(index);
         deactivate();

@@ -19,6 +19,7 @@ import thuyvtk.activity.laundry_customer.services.StoreService;
 
 public class StoreServiceImpl implements StoreService {
     ClientApi clientApi = new ClientApi();
+    final double DISTANCE  = 10;
 
     @Override
     public void getAllStore(final CallbackData<ArrayList<StoreDTO>> callbackData) {
@@ -27,8 +28,7 @@ public class StoreServiceImpl implements StoreService {
             serviceCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    String a = "abcn";
-                    if (response != null && response.body() != null) {
+                    if (response != null ) {
                         if (response.code() == 200) {
                             try {
                                 String result = response.body().string();
@@ -67,7 +67,7 @@ public class StoreServiceImpl implements StoreService {
             serviceCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (response != null && response.body() != null) {
+                    if (response != null ) {
                         if (response.code() == 200) {
                             try {
                                 String result = response.body().string();
@@ -106,7 +106,7 @@ public class StoreServiceImpl implements StoreService {
             serviceCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (response != null && response.body() != null) {
+                    if (response != null ) {
                         if (response.code() == 200) {
                             try {
                                 String result = response.body().string();
@@ -140,7 +140,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public void getNearbyStore(String serviceId, double latitude, double longitude, final CallbackData<ArrayList<StoreDTO>> callbackData) {
-        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getNearbyStore(serviceId,latitude,longitude);
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getNearbyStore(serviceId,latitude,longitude,DISTANCE);
         try {
             serviceCall.enqueue(new Callback<ResponseBody>() {
                 @Override

@@ -234,6 +234,24 @@
         app:tabIndicatorHeight="2sp"
         app:tabMode="fixed"
         app:tabTextAppearance="@style/CustomTabText" />
+    <LinearLayout
+        android:id="@+id/ln_store_waiting"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:progressTint="@color/colorPrimary" />
+
+    </LinearLayout>
     <ListView
         android:id="@+id/lvStore"
         android:layout_width="match_parent"

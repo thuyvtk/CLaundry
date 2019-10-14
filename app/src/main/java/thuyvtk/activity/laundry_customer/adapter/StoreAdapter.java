@@ -49,9 +49,9 @@ public class StoreAdapter extends BaseAdapter {
         TextView txtStoreName =  convertView.findViewById(R.id.txtStoreName);
         TextView txtStoreAddress =  convertView.findViewById(R.id.txtStoreAddress);
         TextView txtStoreRate =  convertView.findViewById(R.id.txtStoreRate);
-//load Image       Picasso.with(context).load(dto.getName()).into(imgStore);
+        Picasso.with(context).load(dto.getImage()).into(imgStore);
         txtStoreName.setText(dto.getName());
-  // get address      txtStoreAddress.setText(dto.getAddress());
+        txtStoreAddress.setText(dto.getAddress());
         String rate = "Rate: ";
         rate += dto.getRate();
         txtStoreRate.setText(rate);

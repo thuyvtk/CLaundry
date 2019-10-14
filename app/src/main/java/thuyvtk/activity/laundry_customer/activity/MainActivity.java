@@ -44,11 +44,8 @@ public class MainActivity extends FragmentActivity implements BottomNavigationVi
                 fragment =  new OrderFragment();
                 break;
             case R.id.navigation_account:
-//                fragment = new AccountFragment();
+               fragment = new AccountFragment();
                 break;
-            default:
-                fragment = new AccountFragment();
-
         }
         return loadFrament(fragment);
     }

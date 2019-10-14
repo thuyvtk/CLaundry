@@ -21,16 +21,16 @@ public interface GenericApi {
     Call<ResponseBody> getAllStore();
 
     @GET(ConfigApi.Api.GET_RECENT_STORE)
-    Call<ResponseBody> getRecentStore( @Query("ServiceId") String serviceId, @Query("CustomerId")String customerId);
+    Call<ResponseBody> getRecentStore( @Query("ServiceTypeId") String serviceTyoeId, @Query("CustomerId")String customerId);
 
     @GET(ConfigApi.Api.GET_TOP_STORE)
-    Call<ResponseBody> getTopStore(@Query("serviceId")String serviceId);
+    Call<ResponseBody> getTopStore(@Query("Id")String serviceTypeId);
 
     @GET(ConfigApi.Api.GET_NEARBY_STORE)
-    Call<ResponseBody> getNearbyStore(@Query("serviceId")String serviceId, @Query("latitude")double latitude, @Query("longitude") double longitude);
+    Call<ResponseBody> getNearbyStore(@Query("serviceId")String serviceId, @Query("latitude")double latitude, @Query("longitude") double longitude, @Query("distances") double distances);
 
     @GET(ConfigApi.Api.SEARCH_STORE_BY_NAME)
-    Call<ResponseBody> searchStoreByName(@Query("storeName")String storeName);
+    Call<ResponseBody> searchStoreByName(@Query("Name")String storeName);
 
     @GET(ConfigApi.Api.GET_CUSTOMER_BY_FIREBASE_ID)
     Call<ResponseBody> getCustomerByFirebaseId(@Query("Id")String id);

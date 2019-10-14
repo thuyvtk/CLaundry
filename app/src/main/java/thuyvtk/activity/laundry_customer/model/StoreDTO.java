@@ -13,9 +13,37 @@ public class StoreDTO implements Serializable {
     private String email;
     @SerializedName("AccountId")
     private String accountId;
-//    @SerializedName("DateCreate")
     @SerializedName("rate")
     private int rate;
+    @SerializedName("Address")
+    private String Address;
+    @SerializedName("Imgurl")
+    private String Image;
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public StoreDTO(String store_id, String name, String email, String accountId, int rate, String address, String image) {
+        this.store_id = store_id;
+        this.name = name;
+        this.email = email;
+        this.accountId = accountId;
+        this.rate = rate;
+        Address = address;
+        Image = image;
+    }
 
     public String getStore_id() {
         return store_id;

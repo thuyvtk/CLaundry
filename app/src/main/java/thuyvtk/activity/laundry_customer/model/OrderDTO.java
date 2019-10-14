@@ -9,13 +9,23 @@ public class OrderDTO {
     @SerializedName("TotalPrice")
     private float totalPrice;
     @SerializedName("Status")
-    private String status ;
+    private String status;
     @SerializedName("CustomerId")
     private String customerId;
     @SerializedName("TakeTime")
-    private Date TakeTime ;
+    private Date takeTime;
+    @SerializedName("DeliveryTime")
+    private Date deliveryTime;
     @SerializedName("ListOrderServices")
-    private List<OrderServiceDTO> listOrderServices ;
+    private List<OrderServiceDTO> listOrderServices;
+
+    public Date getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public void setDeliveryTime(Date deliveryTime) {
+        this.deliveryTime = deliveryTime;
+    }
 
     public float getTotalPrice() {
         return totalPrice;
@@ -42,11 +52,11 @@ public class OrderDTO {
     }
 
     public Date getTakeTime() {
-        return TakeTime;
+        return takeTime;
     }
 
     public void setTakeTime(Date takeTime) {
-        TakeTime = takeTime;
+        this.takeTime = takeTime;
     }
 
     public List<OrderServiceDTO> getListOrderServices() {
@@ -57,11 +67,20 @@ public class OrderDTO {
         this.listOrderServices = listOrderServices;
     }
 
-    public OrderDTO(float totalPrice, String status, String customerId, Date takeTime, List<OrderServiceDTO> listOrderServices) {
+    public OrderDTO(float totalPrice, String status, String customerId, Date takeTime, Date deliveryTime, List<OrderServiceDTO> listOrderServices) {
         this.totalPrice = totalPrice;
         this.status = status;
         this.customerId = customerId;
-        TakeTime = takeTime;
+        this.takeTime = takeTime;
+        this.deliveryTime = deliveryTime;
         this.listOrderServices = listOrderServices;
+    }
+
+    public OrderDTO(float totalPrice, String status, String customerId, Date takeTime, Date deliveryTime) {
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.customerId = customerId;
+        this.takeTime = takeTime;
+        this.deliveryTime = deliveryTime;
     }
 }
