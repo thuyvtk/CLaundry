@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
     ArrayList<ImageButton> listButton = new ArrayList<>();
     ArrayList<TextView> listLabel = new ArrayList<>();
     LocationLibrary locationLibrary;
+    int TAB_POSITION = -1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -100,17 +101,17 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
 
     @Override
     public void returnAllStore(ArrayList<StoreDTO> listStore) {
-            storeAdapter = new StoreAdapter(getContext(), listStore);
-            lvStore.setAdapter(storeAdapter);
-            lvStore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    StoreDTO dto = (StoreDTO) storeAdapter.getItem(position);
-                    Intent intent = new Intent(getContext(), StoreDetailActivity.class);
-                    intent.putExtra("storeId", dto.getStore_id());
-                    startActivity(intent);
-                }
-            });
+        storeAdapter = new StoreAdapter(getContext(), listStore);
+        lvStore.setAdapter(storeAdapter);
+        lvStore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                StoreDTO dto = (StoreDTO) storeAdapter.getItem(position);
+                Intent intent = new Intent(getContext(), StoreDetailActivity.class);
+                intent.putExtra("storeId", dto.getStore_id());
+                startActivity(intent);
+            }
+        });
         ln_store_waitting.setVisibility(View.GONE);
     }
 
@@ -213,26 +214,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         tabStore.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                switch (position) {
-                    case 0:
-                        storePresenter.getRecentStoreWithCurrentService(currentServiceTypeId, dto.getCustomerId());
-                        ln_store_waitting.setVisibility(View.VISIBLE);
-                        break;
-                    case 1:
-                        storePresenter.getTopStoreWithCurrentService(currentServiceTypeId);
-                        ln_store_waitting.setVisibility(View.VISIBLE);
-                        break;
-                    case 2:
-                        LatLng latLng = locationLibrary.getCurrentLocation();
-                        if (latLng != null) {
-                            storePresenter.getNearbyStoreWithCurrentService(currentServiceTypeId, latLng.latitude, latLng.longitude);
-                            ln_store_waitting.setVisibility(View.VISIBLE);
-                        } else {
-                            Toast.makeText(getContext(), "location not defined", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                }
+               loadData();
             }
 
             @Override
@@ -245,6 +227,30 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
 
             }
         });
+    }
+
+    private void loadData() {
+        int position = tabStore.getSelectedTabPosition();
+        switch (position) {
+            case 0:
+                storePresenter.getRecentStoreWithCurrentService(currentServiceTypeId, dto.getCustomerId());
+                ln_store_waitting.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                storePresenter.getTopStoreWithCurrentService(currentServiceTypeId);
+                ln_store_waitting.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                LatLng latLng = locationLibrary.getCurrentLocation();
+                if (latLng != null) {
+                    storePresenter.getNearbyStoreWithCurrentService(currentServiceTypeId, latLng.latitude, latLng.longitude);
+                    ln_store_waitting.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(getContext(), "location not defined", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+
     }
 
 
@@ -291,6 +297,7 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         setCurrentService(listLabel.get(index).getText().toString());
         listButton.remove(index);
         listLabel.remove(index);
+        loadData();
         deactivate();
     }
 
