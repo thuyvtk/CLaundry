@@ -1,6 +1,7 @@
 package thuyvtk.activity.laundry_customer.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,7 +27,7 @@ import thuyvtk.activity.laundry_customer.view.OrderView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AccountFragment extends Fragment implements OrderHistoryView {
+public class AccountFragment extends Fragment  {
     ImageButton imgEdit;
     CircleImageView image_profile;
     TextView txtLogout;
@@ -81,18 +82,5 @@ public class AccountFragment extends Fragment implements OrderHistoryView {
     }
 
 
-    @Override
-    public void loadOrderHistory(List<OrderDTO> orderList) {
-
-    }
-
-    @Override
-    public void onFail(String msg) {
-
-    }
-
-    @Override
-    public void createOrderSuccess() {
-
-    }
+    
 }

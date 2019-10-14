@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import thuyvtk.activity.laundry_customer.R;
+import thuyvtk.activity.laundry_customer.library.CartDTO;
+import thuyvtk.activity.laundry_customer.library.SharePreferenceLib;
 import thuyvtk.activity.laundry_customer.model.ServiceDTO;
 import thuyvtk.activity.laundry_customer.model.ServiceTypeDTO;
 
@@ -24,10 +26,12 @@ public class ServiceTypeAdapter extends BaseAdapter {
     ArrayList<ServiceTypeDTO> listServiceType;
     Context context;
     ServiceAdapter serviceAdapter;
+    SharePreferenceLib sharePreferenceLib;
 
     public ServiceTypeAdapter(ArrayList<ServiceTypeDTO> listServiceType, Context context) {
         this.listServiceType = listServiceType;
         this.context = context;
+        sharePreferenceLib = new SharePreferenceLib(context);
     }
 
     @Override
@@ -57,7 +61,8 @@ public class ServiceTypeAdapter extends BaseAdapter {
         ArrayList<ServiceDTO> listService = dto.getListService();
         for (ServiceDTO item : listService) {
             View child = inflater.inflate(R.layout.service_item,null);
-
+            child = addViewChild(child,item);
+            lnService.addView(child);
         }
         return convertView;
     }
@@ -66,7 +71,7 @@ public class ServiceTypeAdapter extends BaseAdapter {
     TextView txtDescription;
     TextView txtPrice;
     ImageButton imgBAdd;
-    private View addViewChild(View child, ServiceDTO serviceDTO){
+    private View addViewChild(View child, final ServiceDTO serviceDTO){
         imgService = child.findViewById(R.id.imgService);
         txtServiceName = child.findViewById(R.id.txtServiceName);
         txtDescription = child.findViewById(R.id.txtDescription);
@@ -82,9 +87,15 @@ public class ServiceTypeAdapter extends BaseAdapter {
         imgBAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addToCart(serviceDTO);
             }
         });
         return child;
+    }
+
+    private void addToCart(ServiceDTO dto){
+        CartDTO cartDTO = sharePreferenceLib.getShoppingCart();
+        cartDTO.addStore(dto);
+        sharePreferenceLib.saveShoppingCart(cartDTO);
     }
 }
