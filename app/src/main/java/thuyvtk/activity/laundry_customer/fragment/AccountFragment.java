@@ -10,14 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import java.util.List;
-import java.util.zip.Inflater;
-
 import thuyvtk.activity.laundry_customer.R;
 import thuyvtk.activity.laundry_customer.activity.EditAccountActivity;
 import thuyvtk.activity.laundry_customer.activity.LoginActivity;
-import thuyvtk.activity.laundry_customer.activity.MainActivity;
 import thuyvtk.activity.laundry_customer.library.SharePreferenceLib;
 import thuyvtk.activity.laundry_customer.model.OrderDTO;
 import thuyvtk.activity.laundry_customer.view.OrderHistoryView;
@@ -26,16 +22,12 @@ import thuyvtk.activity.laundry_customer.view.OrderHistoryView;
  * A simple {@link Fragment} subclass.
  */
 public class AccountFragment extends Fragment implements OrderHistoryView {
-    Button btnAccount,btnLogout,btnHistory;
 
     public AccountFragment() {
         // Required empty public constructor
     }
 
     private void defineView(View view) {
-        btnAccount = view.findViewById(R.id.btnAccount);
-        btnLogout = view.findViewById(R.id.btnLogout);
-        btnHistory = view.findViewById(R.id.btnHistory);
     }
 
     @Override
@@ -44,30 +36,30 @@ public class AccountFragment extends Fragment implements OrderHistoryView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         defineView(view);
-        btnAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), EditAccountActivity.class);
-                startActivity(intent);
-            }
-        });
-        // logout
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharePreferenceLib sharePreferenceLib =  new SharePreferenceLib(getContext());
-                sharePreferenceLib.logouṭ();
-                Intent intent = new Intent(getContext(),LoginActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
-        btnHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        btnAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), EditAccountActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        // logout
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SharePreferenceLib sharePreferenceLib =  new SharePreferenceLib(getContext());
+//                sharePreferenceLib.logouṭ();
+//                Intent intent = new Intent(getContext(),LoginActivity.class);
+//                startActivity(intent);
+//                getActivity().finish();
+//            }
+//        });
+//        btnHistory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
         return view;
         // view history
 
