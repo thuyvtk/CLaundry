@@ -30,7 +30,5 @@
             app:itemIconTint="@color/puple_blue"
             app:itemTextColor="@color/puple_blue"
             app:menu="@menu/bottom_navigation_menu" />
-
-
     </FrameLayout>
 </LinearLayout>
