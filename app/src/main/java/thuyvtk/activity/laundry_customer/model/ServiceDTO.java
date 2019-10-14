@@ -1,31 +1,20 @@
 package thuyvtk.activity.laundry_customer.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class ServiceDTO implements Serializable {
+    @SerializedName("Id")
     private String id;
-    private String image;
-    private String name;
+    @SerializedName("Imgurl")
+    private String image="";
+    @SerializedName("Description")
     private String description;
+    @SerializedName("Price")
     private double price;
     private int quantity = 1;
 
-
-
-    public ServiceDTO(String id, String image, String name, String description, double price) {
-        this.id = id;
-        this.image = image;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
-
-    public ServiceDTO(String id, String name, String description, double price) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
 
     public String getId() {
         return id;
@@ -43,14 +32,6 @@ public class ServiceDTO implements Serializable {
         this.image = image;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -66,11 +47,20 @@ public class ServiceDTO implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
+
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public ServiceDTO(String id, String image, String description, double price, int quantity) {
+        this.id = id;
+        this.image = image;
+        this.description = description;
+        this.price = price;
         this.quantity = quantity;
     }
 }

@@ -8,6 +8,7 @@ public class ConfigApi {
     public interface Api {
         //store
         String GET_ALL_STORE = "Store/GetAll";
+        String GET_STORE_BY_ID = "Store/GetStoreByIdWithService";
         String GET_RECENT_STORE = "Store/StoreUserHasUse";
         String GET_TOP_STORE =  "Store/GetStoreByRate";
         String GET_NEARBY_STORE = "Store/GetNearbyStores";
@@ -17,6 +18,7 @@ public class ConfigApi {
         String UPDATE_CUSTOMER = "Customer/UpdateCustomer";
         //order
         String ORDER_HISTORY = "Order/History";
+        String CREATE_ORDER = "Order/CreateOrder";
         //service
         String GET_ALL_SERVICE = "ServiceType/GetAll";
     }

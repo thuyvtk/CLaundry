@@ -5,14 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import thuyvtk.activity.laundry_customer.R;
+import thuyvtk.activity.laundry_customer.model.ServiceDTO;
 import thuyvtk.activity.laundry_customer.model.ServiceTypeDTO;
 
 public class ServiceTypeAdapter extends BaseAdapter {
@@ -44,11 +49,42 @@ public class ServiceTypeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.service_type_item,null);
         TextView txtServiceName = convertView.findViewById(R.id.txtServiceTypeName);
-        ListView lvService = convertView.findViewById(R.id.lvService);
+        LinearLayout lnService = convertView.findViewById(R.id.lnService);
         ServiceTypeDTO dto = (ServiceTypeDTO) getItem(position);
         txtServiceName.setText(dto.getName());
         serviceAdapter = new ServiceAdapter(context,dto.getListService(),0);
-        lvService.setAdapter(serviceAdapter);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        ArrayList<ServiceDTO> listService = dto.getListService();
+        for (ServiceDTO item : listService) {
+            View child = inflater.inflate(R.layout.service_item,null);
+
+        }
         return convertView;
+    }
+    ImageView imgService;
+    TextView txtServiceName ;
+    TextView txtDescription;
+    TextView txtPrice;
+    ImageButton imgBAdd;
+    private View addViewChild(View child, ServiceDTO serviceDTO){
+        imgService = child.findViewById(R.id.imgService);
+        txtServiceName = child.findViewById(R.id.txtServiceName);
+        txtDescription = child.findViewById(R.id.txtDescription);
+        txtPrice = child.findViewById(R.id.txtPrice);
+        imgBAdd = child.findViewById(R.id.imgBAdd);
+        // set data
+        if (serviceDTO == null) {
+        } else {
+            Picasso.with(context).load(serviceDTO.getImage()).into(imgService);
+        }
+        txtServiceName.setText(serviceDTO.getDescription());
+        txtPrice.setText(serviceDTO.getPrice() + " VND");
+        imgBAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return child;
     }
 }

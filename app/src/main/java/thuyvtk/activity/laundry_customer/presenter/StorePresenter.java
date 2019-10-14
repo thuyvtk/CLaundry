@@ -86,4 +86,18 @@ public class StorePresenter {
             }
         });
     }
+
+    public void getStoreById(String storeId){
+        storeService.getStoreById(storeId, new CallbackData<StoreDTO>() {
+            @Override
+            public void onSuccess(StoreDTO storeDTO) {
+                storeView.returnStoreById(storeDTO);
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
+    }
 }

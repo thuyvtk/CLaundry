@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,6 +49,35 @@ public class OderServiceImpl implements OrderService {
 
                     }
 
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void createOrder(OrderDTO orderDTO, final CallbackData<String> callbackData) {
+        Gson gson = new Gson();
+        String json = gson.toJson(orderDTO);
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().createOrder(body);
+        try {
+            serviceCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response != null) {
+                        if (response.code() == 200 || response.code() == 201) {
+                            callbackData.onSuccess("success");
+                        } else {
+                            callbackData.onFail("timeout");
+                        }
+                    }
                 }
 
                 @Override

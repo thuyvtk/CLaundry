@@ -20,6 +20,8 @@ public interface GenericApi {
     @GET(ConfigApi.Api.GET_ALL_STORE)
     Call<ResponseBody> getAllStore();
 
+    @GET(ConfigApi.Api.GET_STORE_BY_ID)
+    Call<ResponseBody> getStoreById(@Query("StoreId") String storeID);
     @GET(ConfigApi.Api.GET_RECENT_STORE)
     Call<ResponseBody> getRecentStore( @Query("ServiceTypeId") String serviceTyoeId, @Query("CustomerId")String customerId);
 
@@ -38,8 +40,12 @@ public interface GenericApi {
     @PUT(ConfigApi.Api.UPDATE_CUSTOMER)
     Call<ResponseBody> updateCustomer(@Body RequestBody customer);
 
+    // order
     @GET(ConfigApi.Api.ORDER_HISTORY)
     Call<ResponseBody> getOrderHistory(@Query("Id") String userId);
+
+    @GET(ConfigApi.Api.CREATE_ORDER)
+    Call<ResponseBody> createOrder(@Body RequestBody order);
 
     @GET(ConfigApi.Api.GET_ALL_SERVICE)
     Call<ResponseBody> getAllService();
