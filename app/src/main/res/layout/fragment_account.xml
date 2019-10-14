@@ -23,7 +23,7 @@
                 android:layout_marginLeft="15px"
                 android:layout_marginTop="15dp"
                 android:fontFamily="serif-monospace"
-                android:text="sLaundry"
+                android:text="cLaundry"
                 android:textColor="@color/title"
                 android:textSize="25dp"
                 android:textStyle="bold" />
