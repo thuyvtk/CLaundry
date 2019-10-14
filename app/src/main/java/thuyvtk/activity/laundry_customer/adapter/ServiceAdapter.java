@@ -69,7 +69,7 @@ public class ServiceAdapter extends BaseAdapter {
         if (!dto.getImage().equals("")) {
             Picasso.with(context).load(dto.getImage()).into(imgService);
         }
-        txtServiceName.setText(dto.getName());
+        txtServiceName.setText(dto.getDescription());
         txtDescription.setText(dto.getDescription());
         txtPrice.setText(dto.getPrice() + "");
         if(screenNumber == 0){

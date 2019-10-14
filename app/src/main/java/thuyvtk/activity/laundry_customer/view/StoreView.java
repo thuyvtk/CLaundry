@@ -9,4 +9,5 @@ public interface StoreView {
     void loadStoreFail(String message);
     void searchStoreByName(ArrayList<StoreDTO> listStore);
     void searchStoreByNameFail(String message);
+    void returnStoreById(StoreDTO storeDTO);
 }

@@ -216,4 +216,43 @@ public class StoreServiceImpl implements StoreService {
         }
     }
 
+    @Override
+    public void getStoreById(String id, final CallbackData<StoreDTO> callbackData) {
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getStoreById(id);
+        try {
+            serviceCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response != null && response.body() != null) {
+                        if (response.code() == 200) {
+                            try {
+                                String result = response.body().string();
+                                Type type = new TypeToken<StoreDTO>() {
+                                }.getType();
+                                StoreDTO responseResult = new Gson().fromJson(result, type);
+                                if (responseResult != null) {
+                                    callbackData.onSuccess(responseResult);
+                                } else {
+                                    callbackData.onFail("empty");
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            callbackData.onFail("timeout");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception e) {
+
+        }
+    }
+
 }

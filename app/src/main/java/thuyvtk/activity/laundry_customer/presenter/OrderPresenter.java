@@ -6,13 +6,13 @@ import thuyvtk.activity.laundry_customer.callbacks.CallbackData;
 import thuyvtk.activity.laundry_customer.model.OrderDTO;
 import thuyvtk.activity.laundry_customer.services.OrderService;
 import thuyvtk.activity.laundry_customer.services.serviceImpl.OderServiceImpl;
-import thuyvtk.activity.laundry_customer.view.OrderHistoryView;
+import thuyvtk.activity.laundry_customer.view.OrderView;
 
 public class OrderPresenter {
     OrderService orderService;
-    OrderHistoryView view;
+    OrderView view;
 
-    public OrderPresenter(OrderHistoryView view) {
+    public OrderPresenter(OrderView view) {
         this.view = view;
         orderService =  new OderServiceImpl();
     }
@@ -31,4 +31,17 @@ public class OrderPresenter {
         });
     }
 
+    public void createOrder(OrderDTO dto){
+        orderService.createOrder(dto, new CallbackData<String>() {
+            @Override
+            public void onSuccess(String s) {
+                view.createOrderSuccess();
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
+    }
 }

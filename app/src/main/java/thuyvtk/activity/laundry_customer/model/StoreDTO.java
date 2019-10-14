@@ -3,6 +3,7 @@ package thuyvtk.activity.laundry_customer.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class StoreDTO implements Serializable {
     @SerializedName("Id")
@@ -19,6 +20,10 @@ public class StoreDTO implements Serializable {
     private String Address;
     @SerializedName("Imgurl")
     private String Image;
+
+    @SerializedName("ServiceTypes")
+    private List<ServiceTypeDTO> listServiceType;
+
     public String getAddress() {
         return Address;
     }
@@ -33,6 +38,25 @@ public class StoreDTO implements Serializable {
 
     public void setImage(String image) {
         Image = image;
+    }
+
+    public List<ServiceTypeDTO> getListServiceType() {
+        return listServiceType;
+    }
+
+    public void setListServiceType(List<ServiceTypeDTO> listServiceType) {
+        this.listServiceType = listServiceType;
+    }
+
+    public StoreDTO(String store_id, String name, String email, String accountId, int rate, String address, String image, List<ServiceTypeDTO> listServiceType) {
+        this.store_id = store_id;
+        this.name = name;
+        this.email = email;
+        this.accountId = accountId;
+        this.rate = rate;
+        Address = address;
+        Image = image;
+        this.listServiceType = listServiceType;
     }
 
     public StoreDTO(String store_id, String name, String email, String accountId, int rate, String address, String image) {

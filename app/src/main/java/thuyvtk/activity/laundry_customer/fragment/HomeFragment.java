@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import thuyvtk.activity.laundry_customer.R;
+import thuyvtk.activity.laundry_customer.activity.SearchStoreResultActivity;
 import thuyvtk.activity.laundry_customer.activity.StoreDetailActivity;
 import thuyvtk.activity.laundry_customer.adapter.StoreAdapter;
 import thuyvtk.activity.laundry_customer.library.LocationLibrary;
@@ -67,7 +70,8 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
     ArrayList<ImageButton> listButton = new ArrayList<>();
     ArrayList<TextView> listLabel = new ArrayList<>();
     LocationLibrary locationLibrary;
-    int TAB_POSITION = -1;
+    ImageView btnSearchIcon;
+    EditText edtSearchStore;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -131,6 +135,11 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
     }
 
     @Override
+    public void returnStoreById(StoreDTO storeDTO) {
+
+    }
+
+    @Override
     public void loadAllService(List<ServiceTypeDTO> listService) {
         listServiceType = (ArrayList<ServiceTypeDTO>) listService;
         listService.add(0, new ServiceTypeDTO(SERVICE_ALL_ID, "all"));
@@ -168,6 +177,19 @@ public class HomeFragment extends Fragment implements StoreView, ServiceTypeView
         tabStore = view.findViewById(R.id.tabStore);
         ln_home_waitting = view.findViewById(R.id.ln_home_waiting);
         ln_store_waitting = view.findViewById(R.id.ln_store_waiting);
+        btnSearchIcon = view.findViewById(R.id.btnSearchIcon);
+        edtSearchStore = view.findViewById(R.id.edtSearchStore);
+        btnSearchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = edtSearchStore.getText().toString();
+                if(!name.equals("")){
+                    Intent intent = new Intent(getContext(), SearchStoreResultActivity.class);
+                    intent.putExtra("NAME",name);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void setClickListener() {

@@ -10,6 +10,7 @@ public class ServiceTypeDTO implements Serializable {
     private String id;
     @SerializedName("Name")
     private String name;
+    @SerializedName("listService")
     private ArrayList<ServiceDTO> listService;
 
     public ArrayList<ServiceDTO> getListService() {

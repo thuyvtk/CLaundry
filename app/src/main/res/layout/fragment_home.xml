@@ -53,27 +53,17 @@
                 android:outlineProvider="none"
                 android:src="@drawable/ic_search_black_24dp" />
 
-            <Button
-                android:id="@+id/btnSearchStore"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/edtSearchStore"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/boder_radius"
                 android:outlineProvider="none"
                 android:paddingLeft="50px"
-                android:text="@string/hint_search_bar"
+                android:hint="@string/hint_search_bar"
                 android:textColor="#F8A39E9E"
                 android:textSize="20px" />
         </com.google.android.material.appbar.MaterialToolbar>
-
-        <ImageButton
-            android:id="@+id/btnNotification"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:background="#0000"
-            android:outlineProvider="none"
-            android:paddingLeft="15px"
-            android:src="@drawable/ic_notifications_red_24dp" />
 
     </LinearLayout>
     <!--    Location-->
