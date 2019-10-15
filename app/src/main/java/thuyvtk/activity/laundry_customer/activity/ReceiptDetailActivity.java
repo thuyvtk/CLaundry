@@ -25,6 +25,7 @@ import thuyvtk.activity.laundry_customer.library.CartDTO;
 import thuyvtk.activity.laundry_customer.library.LocationLibrary;
 import thuyvtk.activity.laundry_customer.library.SharePreferenceLib;
 import thuyvtk.activity.laundry_customer.model.OrderDTO;
+import thuyvtk.activity.laundry_customer.model.OrderDetailDTO;
 import thuyvtk.activity.laundry_customer.model.OrderServiceDTO;
 import thuyvtk.activity.laundry_customer.model.ServiceDTO;
 import thuyvtk.activity.laundry_customer.presenter.OrderPresenter;
@@ -185,5 +186,10 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
     @Override
     public void createOrderSuccess() {
         sharePreferenceLib.deleteCart();
+    }
+
+    @Override
+    public void returnListOrder(List<OrderDetailDTO> listOrderDetail) {
+
     }
 }
