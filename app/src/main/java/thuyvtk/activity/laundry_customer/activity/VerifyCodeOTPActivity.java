@@ -136,8 +136,4 @@ public class VerifyCodeOTPActivity extends Activity implements CustomerView {
         startActivity(intent);
     }
 
-    @Override
-    public void updateSuccess() {
-        // use in EditAccount Activity
-    }
 }

@@ -61,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public void updateCustomer(CustomerDTO customer, final CallbackData<CustomerDTO> callbackData) {
+    public void updateCustomer(final CustomerDTO customer, final CallbackData<CustomerDTO> callbackData) {
         Gson gson = new Gson();
         String json = gson.toJson(customer);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), json);
@@ -72,12 +72,8 @@ public class CustomerServiceImpl implements CustomerService {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response != null) {
-                        if (response.code() == 200) {
-                            try {
-                                callbackData.onSuccess(null);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                        if (response.code() == 200 || response.code() == 201) {
+                            callbackData.onSuccess(customer);
                         } else {
                             callbackData.onFail("timeout");
                         }
