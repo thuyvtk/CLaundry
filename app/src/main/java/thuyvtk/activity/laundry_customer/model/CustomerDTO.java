@@ -15,8 +15,23 @@ public class CustomerDTO implements Serializable {
     private String phone;
     @SerializedName("Rate")
     private int rate;
+    @SerializedName ("ImgURL")
+    private String ImgUrl;
     @SerializedName("DateCreate")
     private String createDate;
+
+    public CustomerDTO() {
+    }
+
+    public CustomerDTO(String customerId, String customerName, String email, String phone, int rate, String imgUrl, String createDate) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.email = email;
+        this.phone = phone;
+        this.rate = rate;
+        ImgUrl = imgUrl;
+        this.createDate = createDate;
+    }
 
     public String getCustomerId() {
         return customerId;
@@ -58,20 +73,19 @@ public class CustomerDTO implements Serializable {
         this.rate = rate;
     }
 
+    public String getImgUrl() {
+        return ImgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        ImgUrl = imgUrl;
+    }
+
     public String getCreateDate() {
         return createDate;
     }
 
     public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public CustomerDTO(String customerId, String customerName, String email, String phone, int rate, String createDate) {
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.email = email;
-        this.phone = phone;
-        this.rate = rate;
         this.createDate = createDate;
     }
 }

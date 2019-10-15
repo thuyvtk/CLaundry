@@ -9,20 +9,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import thuyvtk.activity.laundry_customer.R;
-import thuyvtk.activity.laundry_customer.activity.EditAccountActivity;
 import thuyvtk.activity.laundry_customer.activity.EditProfileActivity;
 import thuyvtk.activity.laundry_customer.activity.LoginActivity;
 import thuyvtk.activity.laundry_customer.library.SharePreferenceLib;
-import thuyvtk.activity.laundry_customer.model.OrderDTO;
-import thuyvtk.activity.laundry_customer.view.OrderView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +27,7 @@ public class AccountFragment extends Fragment  {
     ImageButton imgEdit;
     CircleImageView image_profile;
     TextView txtLogout;
+    TextView txtStoreName;
     public AccountFragment() {
         // Required empty public constructor
     }
@@ -39,6 +36,7 @@ public class AccountFragment extends Fragment  {
         imgEdit = view.findViewById(R.id.imgEdit);
         image_profile = view.findViewById(R.id.image_profile);
         txtLogout = view.findViewById(R.id.txtLogout);
+        txtStoreName = view.findViewById(R.id.txtStoreName);
     }
 
     @Override
@@ -46,9 +44,16 @@ public class AccountFragment extends Fragment  {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         defineView(view);
+        getStoreProfile();
         openPageEdit();
         logOut();
         return view;
+    }
+
+    private void getStoreProfile() {
+        SharePreferenceLib sharePreferenceLib = new SharePreferenceLib(getContext());
+        txtStoreName.setText(sharePreferenceLib.getUser().getCustomerName());
+        Picasso.with(getContext()).load(sharePreferenceLib.getUser().getImgUrl()).into(image_profile);
     }
 
     private void logOut() {

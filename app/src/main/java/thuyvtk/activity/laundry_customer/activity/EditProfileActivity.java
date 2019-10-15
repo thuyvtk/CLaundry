@@ -2,6 +2,7 @@ package thuyvtk.activity.laundry_customer.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,10 +21,10 @@ import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import thuyvtk.activity.laundry_customer.R;
+import thuyvtk.activity.laundry_customer.config.ImageManager;
 import thuyvtk.activity.laundry_customer.library.SharePreferenceLib;
 import thuyvtk.activity.laundry_customer.model.CustomerDTO;
 import thuyvtk.activity.laundry_customer.presenter.CustomerPresenter;
-import thuyvtk.activity.laundry_customer.presenter.StorePresenter;
 import thuyvtk.activity.laundry_customer.view.CustomerView;
 
 
@@ -32,7 +33,6 @@ public class EditProfileActivity extends Activity implements CustomerView {
     CustomerDTO currentUser;
     TextView edtUsername;
     TextView txtPhone;
-    Button btnEditLocation;
     EditText edtEmail;
     Button btnUpdateStore;
     ImageButton btnSelectImage;
@@ -41,6 +41,7 @@ public class EditProfileActivity extends Activity implements CustomerView {
     Uri imageUri;
     CircleImageView image_profile;
     String imageName;
+    Context context;
     static final String CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=sqlvadtabpe45ilkho;AccountKey=Q0GtVfudYOKaYykP6CLCyk7uG/0Dak6C9WuAGDj5wQizMJDFEtEPaTGkGtdmNAatlbSXo4xznJAvOw4slPYAIg==;EndpointSuffix=core.windows.net";
     static final String IMAGE_FOLDER = "imagefolder";
     final String serverName = "https://sqlvadtabpe45ilkho.blob.core.windows.net/";
@@ -52,9 +53,10 @@ public class EditProfileActivity extends Activity implements CustomerView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        context = getApplicationContext();
         defineView();
+        customerPresenter = new CustomerPresenter(this);
         sharePreferenceLib = new SharePreferenceLib(getApplicationContext());
-//        storePresenter = new StorePresenter(this);
         getStoreProfile();
         backPreActivity();
         selectProfileImage();
@@ -66,7 +68,6 @@ public class EditProfileActivity extends Activity implements CustomerView {
         edtUsername = findViewById(R.id.edtUsername);
         txtPhone = findViewById(R.id.txtPhone);
         edtEmail = findViewById(R.id.edtEmail);
-        btnEditLocation = findViewById(R.id.btnEditLocation);
         btnUpdateStore = findViewById(R.id.btnUpdateStore);
         btnSelectImage = findViewById(R.id.btnSelectImage);
         image_profile = findViewById(R.id.image_profile);
@@ -88,7 +89,7 @@ public class EditProfileActivity extends Activity implements CustomerView {
         edtUsername.setText(currentUser.getCustomerName());
         txtPhone.setText(currentUser.getPhone());
         edtEmail.setText(currentUser.getEmail());
-//        Picasso.with(this).load(sharePreferenceLib.getUser().getImageUrl()).into(image_profile);
+        Picasso.with(this).load(sharePreferenceLib.getUser().getImgUrl()).into(image_profile);
     }
 
     private void selectProfileImage() {
@@ -124,10 +125,10 @@ public class EditProfileActivity extends Activity implements CustomerView {
             Thread th = new Thread(new Runnable() {
                 public void run() {
                     try {
-//                        imageName = ImageManager.UploadImage(imageStream, imageLength, CONNECTION_STRING, IMAGE_FOLDER);
+                        imageName = ImageManager.UploadImage(imageStream, imageLength, CONNECTION_STRING, IMAGE_FOLDER);
                         handler.post(new Runnable() {
                             public void run() {
-                                updateStoreAPI();
+                                updateCustomerAPI();
                             }
 
                         });
@@ -157,20 +158,20 @@ public class EditProfileActivity extends Activity implements CustomerView {
                     if (flagChangeImageProfile) {
                         uploadImage();
                     } else {
-                        updateStoreAPI();
+                        updateCustomerAPI();
                     }
                 }
             }
         });
     }
 
-    private void updateStoreAPI() {
+    private void updateCustomerAPI() {
         String imageURL = serverName + IMAGE_FOLDER + "/" + imageName;
         CustomerDTO customerDTO = sharePreferenceLib.getUser();
         customerDTO.setCustomerName(edtUsername.getText().toString());
         customerDTO.setEmail(edtEmail.getText().toString());
         if (flagChangeImageProfile) {
-//            customerDTO.setImageUrl(imageURL);
+            customerDTO.setImgUrl(imageURL);
         }
         updateStore(customerDTO);
     }
@@ -179,7 +180,7 @@ public class EditProfileActivity extends Activity implements CustomerView {
 
     private void updateStore(CustomerDTO dto) {
         if (!flag) {
-//            customerPresenter.updateCustomer(dto);
+            customerPresenter.updateCustomer(dto, context);
             ln_waiting.setVisibility(View.VISIBLE);
             flag = true;
         }
@@ -200,11 +201,8 @@ public class EditProfileActivity extends Activity implements CustomerView {
 
     @Override
     public void returnCustomer(CustomerDTO customerDTO) {
-
-    }
-
-    @Override
-    public void updateSuccess() {
-
+        sharePreferenceLib.saveUser(customerDTO);
+        ln_waiting.setVisibility(View.GONE);
+        flag = false;
     }
 }

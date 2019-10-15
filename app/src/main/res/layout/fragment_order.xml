@@ -11,24 +11,67 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.tabs.TabLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabTextAppearance="@style/CustomTextAppearance"
-            app:tabTextColor="@color/black"
-            app:tabSelectedTextColor="@color/puple_blue"
-            app:tabIndicatorColor="@color/puple_blue">
+            android:layout_height="75dp"
+            android:background="@drawable/gradient_deep_blue"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/imgCalendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:id="@+id/txtDayStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3/3/2019"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  ->  "
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/txtDayEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="31/3/2019"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabOrder"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15px"
+            android:layout_marginTop="-20dp"
+            android:layout_marginRight="15px"
+            android:background="@drawable/boder_radius_tab_item"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabTextAppearance="@style/TabOrderTextAppearance">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_item_ongoing"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/order_ongoing"/>
+                android:text="Ongoing" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_item_history"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/order_history" />
-
+                android:text="History" />
         </com.google.android.material.tabs.TabLayout>
     </LinearLayout>
 </FrameLayout>

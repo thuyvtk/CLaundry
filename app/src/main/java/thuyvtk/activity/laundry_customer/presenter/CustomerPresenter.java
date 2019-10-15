@@ -1,5 +1,8 @@
 package thuyvtk.activity.laundry_customer.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import thuyvtk.activity.laundry_customer.callbacks.CallbackData;
 import thuyvtk.activity.laundry_customer.model.CustomerDTO;
 import thuyvtk.activity.laundry_customer.services.CustomerService;
@@ -29,16 +32,17 @@ public class CustomerPresenter {
         });
     }
 
-    public void updateCustomer(String customerId, String customerName) {
-        customerService.updateCustomer(new CustomerDTO(customerId, customerName,"thien@gmail.com","0965448599",1,"2019-09-30T08:05:51.236"), new CallbackData<CustomerDTO>() {
+    public void updateCustomer(CustomerDTO customerDTO, final Context context) {
+        customerService.updateCustomer(customerDTO, new CallbackData<CustomerDTO>() {
             @Override
             public void onSuccess(CustomerDTO customerDTO) {
-                customerView.updateSuccess();
+                customerView.returnCustomer(customerDTO);
+                Toast.makeText(context, "Update your profile successful!",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFail(String message) {
-
+                Toast.makeText(context, "Update your profile failed!",Toast.LENGTH_SHORT).show();
             }
         });
     }

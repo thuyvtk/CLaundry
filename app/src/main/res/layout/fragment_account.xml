@@ -72,13 +72,6 @@
                         android:text="Hana"
                         android:textSize="18dp"
                         android:textStyle="bold|italic" />
-
-                    <TextView
-                        android:id="@+id/txtAddress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="618/13/24 Quang Trung phuong 11 Go Vap"
-                        android:textSize="10dp" />
                 </LinearLayout>
 
                 <ImageButton
