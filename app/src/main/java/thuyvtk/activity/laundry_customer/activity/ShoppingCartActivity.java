@@ -37,6 +37,10 @@ public class ShoppingCartActivity extends AppCompatActivity implements StoreAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
         defineView();
+        loadCart();
+    }
+
+    private void loadCart() {
         sharePreferenceLib = new SharePreferenceLib(this);
         CartDTO dto = sharePreferenceLib.getShoppingCart();
         if (dto != null) {
@@ -45,12 +49,12 @@ public class ShoppingCartActivity extends AppCompatActivity implements StoreAdap
             lvCartItem.setAdapter(serviceAdapter);
         }
         txtCustomerName.setText(dto.getCustomer().getCustomerName());
-        txtTotalPrice.setText(dto.getTotalPrice()+"");
+        txtTotalPrice.setText(dto.getTotalPrice() + "");
         imgReceipt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ReceiptDetailActivity.class);
-                startActivityForResult(intent,113);
+                startActivityForResult(intent, 113);
             }
         });
     }
@@ -63,7 +67,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements StoreAdap
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 113 && resultCode ==115){
+        if (requestCode == 113 && resultCode == 115) {
             this.finish();
         }
     }
