@@ -69,4 +69,10 @@ public class SharePreferenceLib {
         editor.putString(CART_NAME, json);
         editor.commit();
     }
+
+    public void deleteCart(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(CART_NAME);
+        editor.commit();
+    }
 }

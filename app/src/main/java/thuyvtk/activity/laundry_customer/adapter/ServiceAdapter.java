@@ -1,8 +1,6 @@
 package thuyvtk.activity.laundry_customer.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,13 +81,12 @@ public class ServiceAdapter extends BaseAdapter {
             if(dto != null){
                 txtQuantity.setText(dto.getQuantity()+"");
             }
-            imgBAdd.setImageResource(R.drawable.ic_add_circle_blue_24dp);
+            imgBAdd.setImageResource(R.drawable.ic_remove_circle_red_24dp);
             imgBAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     removeFromCart(dto);
                     reLoadListService(dto);
-
                 }
             });
         }

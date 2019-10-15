@@ -98,6 +98,7 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         try {
             OrderDTO orderDTO = new OrderDTO((float) cartDTO.getTotalPrice(), PENDING, cartDTO.getCustomer().getCustomerId(),sdf.parse(takeTime),sdf.parse(deliveryTime),listOrder);
             //todo create order
+            presenter.createOrder(orderDTO);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -183,6 +184,6 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
 
     @Override
     public void createOrderSuccess() {
-
+        sharePreferenceLib.deleteCart();
     }
 }
