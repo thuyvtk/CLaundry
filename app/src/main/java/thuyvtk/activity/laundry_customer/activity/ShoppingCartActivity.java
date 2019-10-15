@@ -2,7 +2,10 @@ package thuyvtk.activity.laundry_customer.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,11 +22,13 @@ public class ShoppingCartActivity extends AppCompatActivity implements StoreAdap
     ListView lvCartItem;
     TextView txtTotalPrice, txtCustomerName;
     SharePreferenceLib sharePreferenceLib;
+    ImageView imgReceipt;
 
     private void defineView() {
         txtTotalPrice = findViewById(R.id.txtTotalPrice);
         txtCustomerName = findViewById(R.id.txtCustomerName);
         lvCartItem = findViewById(R.id.lvCartItem);
+        imgReceipt = findViewById(R.id.imgReceipt);
     }
 
     @Override
@@ -40,6 +45,13 @@ public class ShoppingCartActivity extends AppCompatActivity implements StoreAdap
         }
         txtCustomerName.setText(dto.getCustomer().getCustomerName());
         txtTotalPrice.setText(dto.getTotalPrice()+"");
+        imgReceipt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ReceiptDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
