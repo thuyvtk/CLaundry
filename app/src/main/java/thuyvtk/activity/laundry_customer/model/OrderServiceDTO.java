@@ -6,11 +6,13 @@ import java.io.Serializable;
 
 public class OrderServiceDTO implements Serializable {
     @SerializedName("Quantity")
-    public int quantity;
+    private int quantity;
     @SerializedName("Price")
-    public float price;
+    private float price;
     @SerializedName("ServiceId")
-    public String serviceId;
+    private String serviceId;
+    @SerializedName("Service")
+    private ServiceDTO serviceDTO;
 
     public int getQuantity() {
         return quantity;
@@ -34,6 +36,14 @@ public class OrderServiceDTO implements Serializable {
 
     public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
+    }
+
+    public ServiceDTO getServiceDTO() {
+        return serviceDTO;
+    }
+
+    public void setServiceDTO(ServiceDTO serviceDTO) {
+        this.serviceDTO = serviceDTO;
     }
 
     public OrderServiceDTO(int quantity, float price, String serviceId) {

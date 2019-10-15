@@ -4,10 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 import java.util.List;
+import java.io.Serializable;
 
-public class OrderDTO {
+public class OrderDTO implements Serializable {
     @SerializedName("Id")
-    private float orderId;
+    private String orderId;
     @SerializedName("TotalPrice")
     private float totalPrice;
     @SerializedName("Status")
@@ -20,8 +21,6 @@ public class OrderDTO {
     private Date deliveryTime;
     @SerializedName("OrderServices")
     private List<OrderServiceDTO> listOrderServices;
-    @SerializedName("DateCreate")
-    private String dateCreate;
 
     public OrderDTO() {
     }
@@ -35,11 +34,11 @@ public class OrderDTO {
         this.listOrderServices = listOrderServices;
     }
 
-    public float getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(float orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -91,11 +90,4 @@ public class OrderDTO {
         this.listOrderServices = listOrderServices;
     }
 
-    public String getDateCreate() {
-        return dateCreate;
-    }
-
-    public void setDateCreate(String dateCreate) {
-        this.dateCreate = dateCreate;
-    }
 }

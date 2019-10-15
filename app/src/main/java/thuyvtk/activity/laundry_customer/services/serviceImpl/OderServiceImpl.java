@@ -15,6 +15,7 @@ import retrofit2.Response;
 import thuyvtk.activity.laundry_customer.callbacks.CallbackData;
 import thuyvtk.activity.laundry_customer.model.CustomerDTO;
 import thuyvtk.activity.laundry_customer.model.OrderDTO;
+import thuyvtk.activity.laundry_customer.model.OrderDetailDTO;
 import thuyvtk.activity.laundry_customer.repositories.ClientApi;
 import thuyvtk.activity.laundry_customer.services.OrderService;
 
@@ -91,7 +92,7 @@ public class OderServiceImpl implements OrderService {
     }
 
     @Override
-    public void getOrderByDateAndStatus(String customerId, String dateStart, String dateEnd, String status, final CallbackData<List<OrderDTO>> callbackData) {
+    public void getOrderByDateAndStatus(String customerId, String dateStart, String dateEnd, String status, final CallbackData<List<OrderDetailDTO>> callbackData) {
         Call<ResponseBody> serviceCall = clientApi.getGenericApi().getByDateAndStatus(customerId, dateStart, dateEnd, status);
         try {
             serviceCall.enqueue(new Callback<ResponseBody>() {
@@ -101,9 +102,9 @@ public class OderServiceImpl implements OrderService {
                         if (response.code() == 200) {
                             try {
                                 String result = response.body().string();
-                                Type type = new TypeToken<List<OrderDTO>>() {
+                                Type type = new TypeToken<List<OrderDetailDTO>>() {
                                 }.getType();
-                                List<OrderDTO> responseResult = new Gson().fromJson(result, type);
+                                List<OrderDetailDTO> responseResult = new Gson().fromJson(result, type);
                                 if (responseResult != null) {
                                     callbackData.onSuccess(responseResult);
                                 } else {
