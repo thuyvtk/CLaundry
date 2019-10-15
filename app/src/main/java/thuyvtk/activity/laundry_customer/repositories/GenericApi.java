@@ -17,6 +17,7 @@ import retrofit2.http.Query;
 
 public interface GenericApi {
 
+    //store
     @GET(ConfigApi.Api.GET_ALL_STORE)
     Call<ResponseBody> getAllStore();
 
@@ -34,6 +35,7 @@ public interface GenericApi {
     @GET(ConfigApi.Api.SEARCH_STORE_BY_NAME)
     Call<ResponseBody> searchStoreByName(@Query("Name")String storeName);
 
+    //customer
     @GET(ConfigApi.Api.GET_CUSTOMER_BY_FIREBASE_ID)
     Call<ResponseBody> getCustomerByFirebaseId(@Query("Id")String id);
 
@@ -49,4 +51,8 @@ public interface GenericApi {
 
     @GET(ConfigApi.Api.GET_ALL_SERVICE)
     Call<ResponseBody> getAllService();
+
+    @GET(ConfigApi.Api.GET_BY_DATE_STATUS)
+    Call<ResponseBody> getByDateAndStatus(@Query("Id") String customerId, @Query("DateCreateStart") String dateStart,
+                                          @Query("DateCreateEnd") String dateEnd, @Query("Status") String status);
 }

@@ -19,6 +19,7 @@ public class ConfigApi {
         //order
         String ORDER_HISTORY = "Order/History";
         String CREATE_ORDER = "Order/CreateOrder";
+        String GET_BY_DATE_STATUS = "Order/GetByCustomerId";
         //service
         String GET_ALL_SERVICE = "ServiceType/GetAll";
     }

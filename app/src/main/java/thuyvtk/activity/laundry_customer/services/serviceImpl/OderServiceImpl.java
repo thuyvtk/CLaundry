@@ -89,4 +89,42 @@ public class OderServiceImpl implements OrderService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void getOrderByDateAndStatus(String customerId, String dateStart, String dateEnd, String status, final CallbackData<List<OrderDTO>> callbackData) {
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getByDateAndStatus(customerId, dateStart, dateEnd, status);
+        try {
+            serviceCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response != null && response.body() != null) {
+                        if (response.code() == 200) {
+                            try {
+                                String result = response.body().string();
+                                Type type = new TypeToken<List<OrderDTO>>() {
+                                }.getType();
+                                List<OrderDTO> responseResult = new Gson().fromJson(result, type);
+                                if (responseResult != null) {
+                                    callbackData.onSuccess(responseResult);
+                                } else {
+                                    callbackData.onFail("empty");
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            callbackData.onFail("timeout");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception e) {
+        }
+    }
 }

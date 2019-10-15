@@ -47,7 +47,6 @@ dependencies {
     // Google map API dependency
     implementation 'com.google.android.libraries.places:places:1.1.0'
 
-    //calendar picker
     implementation 'com.squareup:android-times-square:1.6.5@aar'
 
 }

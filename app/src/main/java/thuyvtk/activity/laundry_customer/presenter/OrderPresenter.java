@@ -44,4 +44,18 @@ public class OrderPresenter {
             }
         });
     }
+
+    public void getOrderByDateAndStatus(String customerId,String dateStart,String dateEnd, String status) {
+        orderService.getOrderByDateAndStatus(customerId, dateStart, dateEnd, status, new CallbackData<List<OrderDTO>>() {
+            @Override
+            public void onSuccess(List<OrderDTO> orderDTOS) {
+                view.loadOrderHistory(orderDTOS);
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
+    }
 }

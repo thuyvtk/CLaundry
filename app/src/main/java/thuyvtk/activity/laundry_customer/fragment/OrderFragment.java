@@ -26,7 +26,7 @@ import thuyvtk.activity.laundry_customer.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderFragment extends Fragment {
+public class OrderFragment extends Fragment{
     ImageButton imgCalendar;
     TextView txtDateStart, txtDateEnd;
     CalendarPickerView cal_order;
@@ -45,6 +45,9 @@ public class OrderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order, container, false);
         defineView(view);
+        setDateInit();
+        changeSelectedTab();
+        loadFragment(new OrderOngoingFragment());
         setDialog();
         imgCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +88,52 @@ public class OrderFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+    }
+
+    private void setDateInit() {
+        SimpleDateFormat sdf =  new SimpleDateFormat("dd/MM/yyyy");
+        Date currentTime = Calendar.getInstance().getTime();
+        txtDateEnd.setText(sdf.format(currentTime));
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        txtDateStart.setText(sdf.format(calendar.getTime()));
+    }
+
+    public void changeSelectedTab() {
+        tabOrder.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Fragment fragment = null;
+                switch (tab.getPosition()) {
+                    case 1:
+                        fragment = new OrderHistoryFragment();
+                        break;
+                    default:
+                        fragment = new OrderOngoingFragment();
+                }
+                loadFragment(fragment);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    public void loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getActivity().
+                    getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+        }
     }
 
 }
