@@ -80,7 +80,7 @@ public class OrderOngoingFragment extends Fragment implements OrderView {
 
     @Override
     public void returnListOrder(List<OrderDetailDTO> listOrderDetail) {
-        adapter = new OrderOngoingAdapter(getContext(),listOrderDetail);
+        adapter = new OrderOngoingAdapter(getActivity(),listOrderDetail);
         rv_order.setAdapter(adapter);
         ln_waiting.setVisibility(View.GONE);
     }

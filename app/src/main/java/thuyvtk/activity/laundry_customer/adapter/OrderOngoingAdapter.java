@@ -19,6 +19,8 @@ import java.util.List;
 import thuyvtk.activity.laundry_customer.R;
 import thuyvtk.activity.laundry_customer.model.OrderDTO;
 import thuyvtk.activity.laundry_customer.model.OrderDetailDTO;
+import thuyvtk.activity.laundry_customer.model.OrderOngoingDTO;
+import thuyvtk.activity.laundry_customer.model.StoreBS;
 
 public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapter.OrderOngoingViewHolder> {
     private List<OrderDetailDTO> listOrderByDate;
@@ -41,7 +43,7 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
         OrderDetailDTO orderDetailDTO = listOrderByDate.get(position);
         holder.txt_date_create.setText(String.format(orderDetailDTO.getDateCreate(), "dd/MM/yyyy"));
         LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        for (OrderDTO item : orderDetailDTO.getListOrder()) {
+        for (OrderOngoingDTO item : orderDetailDTO.getListOrder()) {
             View child = inflater.inflate(R.layout.item_order_sub,null);
             child = addViewChild(child,item);
             holder.list_order.addView(child);
@@ -49,20 +51,21 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
     }
 
     CardView cv_order;
-    TextView txt_status, txt_orderId, txt_storeName, txt_item_price;
+    TextView txt_status, txt_storeName, txt_item_price;
     ImageView img_storeProfile;
-    private View addViewChild(View child, OrderDTO orderDTO){
+    private View addViewChild(View child, OrderOngoingDTO orderDTO){
         cv_order = child.findViewById(R.id.cv_order);
         txt_status = child.findViewById(R.id.txt_status);
-        txt_orderId = child.findViewById(R.id.txt_orderId);
         txt_storeName = child.findViewById(R.id.txt_storeName);
         txt_item_price = child.findViewById(R.id.txt_item_price);
         img_storeProfile = child.findViewById(R.id.img_storeProfile);
 
         txt_status.setText(orderDTO.getStatus());
-        txt_orderId.setText(orderDTO.getOrderId());
-        // toDo get store profile
-//        Picasso.with(context).load(orderDTO.getCustomerId()).into(holder.service_img);
+        StoreBS store = orderDTO.getListOrderServices().get(0).getServiceDTO().getStore();
+        if(store.getImage() != null){
+            Picasso.with(context).load(store.getImage()).into(img_storeProfile);
+        }
+       txt_storeName.setText(store.getName());
         String item_price = orderDTO.getListOrderServices().size() + " items - " + orderDTO.getTotalPrice() + " VND";
         txt_item_price.setText(item_price);
         return child;
@@ -70,7 +73,7 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listOrderByDate.size();
     }
 
     public static class OrderOngoingViewHolder extends RecyclerView.ViewHolder {

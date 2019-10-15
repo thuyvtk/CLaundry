@@ -14,7 +14,20 @@ public class ServiceDTO implements Serializable {
     @SerializedName("Price")
     private double price;
     private int quantity = 1;
+    @SerializedName("Store")
+    private StoreBS store;
 
+    public ServiceDTO() {
+    }
+
+    public ServiceDTO(String id, String image, String description, double price, int quantity, StoreBS store) {
+        this.id = id;
+        this.image = image;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.store = store;
+    }
 
     public String getId() {
         return id;
@@ -56,11 +69,11 @@ public class ServiceDTO implements Serializable {
         this.quantity = quantity;
     }
 
-    public ServiceDTO(String id, String image, String description, double price, int quantity) {
-        this.id = id;
-        this.image = image;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
+    public StoreBS getStore() {
+        return store;
+    }
+
+    public void setStore(StoreBS store) {
+        this.store = store;
     }
 }

@@ -60,7 +60,6 @@ public class OrderServiceAdapter extends RecyclerView.Adapter<OrderServiceAdapte
             super(serviceView);
             cv_order = serviceView.findViewById(R.id.cv_order);
             txt_status = serviceView.findViewById(R.id.txt_status);
-            txt_orderId = serviceView.findViewById(R.id.txt_orderId);
             img_storeProfile = serviceView.findViewById(R.id.img_storeProfile);
             txt_storeName = serviceView.findViewById(R.id.txt_storeName);
             txt_item_price = serviceView.findViewById(R.id.txt_item_price);
