@@ -22,6 +22,7 @@ import thuyvtk.activity.laundry_customer.view.StoreAdapterView;
 public class ServiceAdapter extends BaseAdapter {
     Context context;
     ArrayList<ServiceDTO> listService;
+    ArrayList<ServiceDTO> originalList;
     SharePreferenceLib sharePreferenceLib;
     int screenNumber;
     StoreAdapterView view;
@@ -30,6 +31,7 @@ public class ServiceAdapter extends BaseAdapter {
     public ServiceAdapter(Context context, ArrayList<ServiceDTO> listService, int screenNumber) {
         this.context = context;
         this.listService = listService;
+        this.originalList = listService;
         this.screenNumber = screenNumber;
     }
 
@@ -91,17 +93,17 @@ public class ServiceAdapter extends BaseAdapter {
     private void removeFromCart(ServiceDTO dto) {
         CartDTO cartDTO = sharePreferenceLib.getShoppingCart();
         cartDTO.removeStore(dto);
-        ServiceAdapter.this.view.onRemoveFromCart(dto.getPrice());
         sharePreferenceLib.saveShoppingCart(cartDTO);
         view.onRemoveFromCart(cartDTO.getTotalPrice());
     }
 
     private void reLoadListService(ServiceDTO dto) {
-        for (int i = 0; i < listService.size(); i++) {
-            ServiceDTO serviceDTO = listService.get(i);
+        for (int i = 0; i < originalList.size(); i++) {
+            ServiceDTO serviceDTO = originalList.get(i);
             if (serviceDTO.getId().equals(dto.getId())) {
-                listService.remove(serviceDTO);
+                originalList.remove(serviceDTO);
             }
         }
+        listService = originalList;
     }
 }
