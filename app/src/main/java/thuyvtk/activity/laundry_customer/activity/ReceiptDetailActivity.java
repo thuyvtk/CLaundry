@@ -2,8 +2,10 @@ package thuyvtk.activity.laundry_customer.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.location.Address;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +34,7 @@ import thuyvtk.activity.laundry_customer.view.OrderView;
 
 public class ReceiptDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, OrderView {
     TextView timeDelivery, dateDelivery, txtTotalReceipt, txtCustomerReceipt, txtAddress, timeTake, dateTake;
-    LinearLayout ln_timeDelivery, ln_dateDelivery, ln_timeTake, ln_dateTake;
+    LinearLayout ln_timeDelivery, ln_dateDelivery, ln_timeTake, ln_dateTake, ln_receipt_waiting;
     ListView lvReceipt;
     SharePreferenceLib sharePreferenceLib;
     ArrayList<ServiceDTO> listService;
@@ -54,6 +56,7 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         txtTotalReceipt = findViewById(R.id.txtTotalReceipt);
         txtCustomerReceipt = findViewById(R.id.txtCustomerReceipt);
         txtAddress = findViewById(R.id.txtAddress);
+        ln_receipt_waiting = findViewById(R.id.ln_receipt_waiting);
     }
 
     @Override
@@ -66,7 +69,7 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         cartDTO = sharePreferenceLib.getShoppingCart();
         if (cartDTO != null) {
             listService = new ArrayList<>(cartDTO.getListStore().values());
-            ServiceAdapter serviceAdapter = new ServiceAdapter(this, listService, 1);
+            ServiceAdapter serviceAdapter = new ServiceAdapter(this, listService, 0);
             lvReceipt.setAdapter(serviceAdapter);
         }
         txtCustomerReceipt.setText(cartDTO.getCustomer().getCustomerName());
@@ -79,10 +82,6 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         LocationLibrary locationLibrary = new LocationLibrary(getApplicationContext(), this);
         List<Address> address = locationLibrary.getCurrentAddress();
         String addressLine = address.get(0).getAddressLine(0);
-        if (addressLine.length() > 35) {
-            String temp = addressLine.replace(addressLine.substring(35), "...");
-            addressLine = temp;
-        }
         txtAddress.setText(addressLine);
     }
 
@@ -92,13 +91,16 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
             OrderServiceDTO dto = new OrderServiceDTO(service.getQuantity(), (float) service.getPrice(), service.getId());
             listOrder.add(dto);
         }
-        String deliveryTime = dateDelivery.getText().toString() + "T" + timeDelivery.getText().toString();
-        String takeTime = dateTake.getText().toString() + "T" + timeTake.getText().toString();
-        SimpleDateFormat sdf =  new SimpleDateFormat("dd/MM/yyyyTHH:mm:ss");
+        String deliveryTime = dateDelivery.getText().toString() + " " + timeDelivery.getText().toString();
+        String takeTime = dateTake.getText().toString() + " " + timeTake.getText().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
-            OrderDTO orderDTO = new OrderDTO((float) cartDTO.getTotalPrice(), PENDING, cartDTO.getCustomer().getCustomerId(),sdf.parse(takeTime),sdf.parse(deliveryTime),listOrder);
-            //todo create order
+            Date take = sdf.parse(takeTime);
+            Date delivery = sdf.parse(deliveryTime);
+            OrderDTO orderDTO = new OrderDTO((float) cartDTO.getTotalPrice(), PENDING,
+                    cartDTO.getCustomer().getCustomerId(), take, delivery, listOrder);
             presenter.createOrder(orderDTO);
+            ln_receipt_waiting.setVisibility(View.VISIBLE);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -162,11 +164,11 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + "/" + month + 1 + "/" + year;
-        if(isTake){
+        String date = dayOfMonth + "/" + (month + 1) + "/" + year;
+        if (isTake) {
             dateTake.setText(date);
             isTake = false;
-        }else{
+        } else {
             dateDelivery.setText(date);
         }
 
@@ -179,11 +181,25 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
 
     @Override
     public void onFail(String msg) {
-
+        ln_receipt_waiting.setVisibility(View.GONE);
     }
 
     @Override
     public void createOrderSuccess() {
         sharePreferenceLib.deleteCart();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Congratulation!!");
+        builder.setMessage("Your order is confirmed.");
+        builder.setNegativeButton("Great!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                setResult(115);
+                finish();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 }

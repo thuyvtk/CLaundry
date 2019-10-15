@@ -46,7 +46,7 @@ public interface GenericApi {
     @GET(ConfigApi.Api.ORDER_HISTORY)
     Call<ResponseBody> getOrderHistory(@Query("Id") String userId);
 
-    @GET(ConfigApi.Api.CREATE_ORDER)
+    @POST(ConfigApi.Api.CREATE_ORDER)
     Call<ResponseBody> createOrder(@Body RequestBody order);
 
     @GET(ConfigApi.Api.GET_ALL_SERVICE)

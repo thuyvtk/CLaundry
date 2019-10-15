@@ -7,7 +7,30 @@
     android:orientation="vertical"
     tools:context=".activity.ReceiptDetailActivity"
     android:background="@color/white">
+    <LinearLayout
+        android:id="@+id/ln_receipt_waiting"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
+        <ProgressBar
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:progressTint="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Loading ..."
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -172,7 +195,7 @@
         android:id="@+id/lvReceipt"
         android:layout_width="match_parent"
         android:layout_height="550dp"
-        android:layout_weight="1" />
+        android:layout_weight="8" />
     <LinearLayout
         android:layout_weight="1"
         android:layout_marginLeft="10dp"

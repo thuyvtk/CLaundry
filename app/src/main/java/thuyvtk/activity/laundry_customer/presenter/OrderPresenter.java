@@ -40,7 +40,7 @@ public class OrderPresenter {
 
             @Override
             public void onFail(String message) {
-
+                view.onFail(message);
             }
         });
     }

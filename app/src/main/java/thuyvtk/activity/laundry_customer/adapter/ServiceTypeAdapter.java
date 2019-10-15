@@ -77,8 +77,7 @@ public class ServiceTypeAdapter extends BaseAdapter {
         txtPrice = child.findViewById(R.id.txtPrice);
         imgBAdd = child.findViewById(R.id.imgBAdd);
         // set data
-        if (serviceDTO == null) {
-        } else {
+        if (serviceDTO.getImage() != null && !serviceDTO.getImage().equals("")) {
             Picasso.with(context).load(serviceDTO.getImage()).into(imgService);
         }
         txtServiceName.setText(serviceDTO.getDescription());

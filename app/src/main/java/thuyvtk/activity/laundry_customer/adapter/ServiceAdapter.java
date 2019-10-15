@@ -26,7 +26,7 @@ public class ServiceAdapter extends BaseAdapter {
     int screenNumber;
     StoreAdapterView view;
 
-    // screen: 0:storeDetail, 1: cartActivity
+    // screen: 0:receipt, 1: cartActivity
     public ServiceAdapter(Context context, ArrayList<ServiceDTO> listService, int screenNumber) {
         this.context = context;
         this.listService = listService;
@@ -70,17 +70,12 @@ public class ServiceAdapter extends BaseAdapter {
         }
         txtServiceName.setText(dto.getDescription());
         txtPrice.setText(dto.getPrice() + "");
+        if (dto != null) {
+            txtQuantity.setText(dto.getQuantity() + "");
+        }
         if (screenNumber == 0) {
-            imgBAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addToCart(dto);
-                }
-            });
+            imgBAdd.setVisibility(View.GONE);
         } else if (screenNumber == 1) {
-            if(dto != null){
-                txtQuantity.setText(dto.getQuantity()+"");
-            }
             imgBAdd.setImageResource(R.drawable.ic_remove_circle_red_24dp);
             imgBAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,14 +85,7 @@ public class ServiceAdapter extends BaseAdapter {
                 }
             });
         }
-
         return view;
-    }
-
-    private void addToCart(ServiceDTO dto) {
-        CartDTO cartDTO = sharePreferenceLib.getShoppingCart();
-        cartDTO.addStore(dto);
-        sharePreferenceLib.saveShoppingCart(cartDTO);
     }
 
     private void removeFromCart(ServiceDTO dto) {

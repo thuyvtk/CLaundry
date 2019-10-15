@@ -1,5 +1,6 @@
 package thuyvtk.activity.laundry_customer.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -49,7 +50,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements StoreAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ReceiptDetailActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,113);
             }
         });
     }
@@ -57,5 +58,13 @@ public class ShoppingCartActivity extends AppCompatActivity implements StoreAdap
     @Override
     public void onRemoveFromCart(double totalPrice) {
         txtTotalPrice.setText(totalPrice + "");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 113 && resultCode ==115){
+            this.finish();
+        }
     }
 }

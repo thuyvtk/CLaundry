@@ -54,7 +54,9 @@ public class StoreAdapter extends BaseAdapter implements Filterable {
         TextView txtStoreName =  convertView.findViewById(R.id.txtStoreName);
         TextView txtStoreAddress =  convertView.findViewById(R.id.txtStoreAddress);
         TextView txtStoreRate =  convertView.findViewById(R.id.txtStoreRate);
-        Picasso.with(context).load(dto.getImage()).into(imgStore);
+        if(dto.getImage() != null && !dto.getImage().equals("")){
+            Picasso.with(context).load(dto.getImage()).into(imgStore);
+        }
         txtStoreName.setText(dto.getName());
         txtStoreAddress.setText(dto.getAddress());
         String rate = "Rate: ";

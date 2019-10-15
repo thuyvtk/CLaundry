@@ -18,7 +18,7 @@ public class OrderDTO {
     private Date takeTime;
     @SerializedName("DeliveryTime")
     private Date deliveryTime;
-    @SerializedName("ListOrderServices")
+    @SerializedName("OrderServices")
     private List<OrderServiceDTO> listOrderServices;
     @SerializedName("DateCreate")
     private String dateCreate;
