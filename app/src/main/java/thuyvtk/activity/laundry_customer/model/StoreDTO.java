@@ -20,6 +20,8 @@ public class StoreDTO implements Serializable {
     private String Address;
     @SerializedName("Imgurl")
     private String Image;
+    @SerializedName("IsActive")
+    private boolean isActivate;
 
     @SerializedName("ServiceTypes")
     private List<ServiceTypeDTO> listServiceType;
@@ -48,7 +50,15 @@ public class StoreDTO implements Serializable {
         this.listServiceType = listServiceType;
     }
 
-    public StoreDTO(String store_id, String name, String email, String accountId, int rate, String address, String image, List<ServiceTypeDTO> listServiceType) {
+    public boolean isActivate() {
+        return isActivate;
+    }
+
+    public void setActivate(boolean activate) {
+        isActivate = activate;
+    }
+
+    public StoreDTO(String store_id, String name, String email, String accountId, int rate, String address, String image, boolean isActivate, List<ServiceTypeDTO> listServiceType) {
         this.store_id = store_id;
         this.name = name;
         this.email = email;
@@ -56,6 +66,7 @@ public class StoreDTO implements Serializable {
         this.rate = rate;
         Address = address;
         Image = image;
+        this.isActivate = isActivate;
         this.listServiceType = listServiceType;
     }
 

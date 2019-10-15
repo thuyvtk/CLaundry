@@ -34,7 +34,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements StoreAdap
         sharePreferenceLib = new SharePreferenceLib(this);
         CartDTO dto = sharePreferenceLib.getShoppingCart();
         if (dto != null) {
-            ArrayList<ServiceDTO> listService = (ArrayList<ServiceDTO>) dto.getListStore().values();
+            ArrayList<ServiceDTO> listService = new ArrayList<>(dto.getListStore().values());
             ServiceAdapter serviceAdapter = new ServiceAdapter(this, listService, 1, this);
             lvCartItem.setAdapter(serviceAdapter);
         }

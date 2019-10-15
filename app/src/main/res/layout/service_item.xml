@@ -4,7 +4,8 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <LinearLayout
             android:padding="16dp"
@@ -39,13 +40,6 @@
                         android:textColor="@color/title"
                         android:textSize="16dp" />
                     <TextView
-                        android:id="@+id/txtDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1 Quang Trung, Go Vap, HCM"
-                        android:textSize="14dp"
-                        android:textColor="@color/sub_title"/>
-                    <TextView
                         android:layout_marginTop="5dp"
                         android:id="@+id/txtPrice"
                         android:layout_width="match_parent"
@@ -58,6 +52,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="right|center">
+                    <TextView
+                        android:id="@+id/txtQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/balance_green"/>
                    <ImageButton
                        android:background="@color/white"
                        android:src="@drawable/ic_add_circle_blue_24dp"

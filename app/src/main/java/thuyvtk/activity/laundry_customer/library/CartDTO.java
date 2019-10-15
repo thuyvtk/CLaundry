@@ -34,25 +34,28 @@ public class CartDTO implements Serializable {
         this.customer = customer;
     }
 
-    public void addStore(ServiceDTO serviceDTO){
-        if(listStore.containsKey(serviceDTO.getId())){
+    public void addStore(ServiceDTO serviceDTO) {
+        if (listStore.containsKey(serviceDTO.getId())) {
             ServiceDTO dto = listStore.get(serviceDTO.getId());
             int quantity = dto.getQuantity();
-            dto.setQuantity(quantity++);
-        }else{
-            listStore.put(serviceDTO.getId(),serviceDTO);
+            dto.setQuantity(quantity + 1);
+        } else {
+            serviceDTO.setQuantity(1);
+            listStore.put(serviceDTO.getId(), serviceDTO);
         }
     }
-    public void removeStore(ServiceDTO serviceDTO){
-        if(listStore.containsKey(serviceDTO.getId())){
-           listStore.remove(serviceDTO.getId());
-        }else{
+
+    public void removeStore(ServiceDTO serviceDTO) {
+        if (listStore.containsKey(serviceDTO.getId())) {
+            listStore.remove(serviceDTO.getId());
+        } else {
 
         }
     }
-    public double getTotalPrice(){
-        double total = 0 ;
-        for (ServiceDTO dto: listStore.values()) {
+
+    public double getTotalPrice() {
+        double total = 0;
+        for (ServiceDTO dto : listStore.values()) {
             double price = dto.getQuantity() * dto.getPrice();
             total += price;
         }

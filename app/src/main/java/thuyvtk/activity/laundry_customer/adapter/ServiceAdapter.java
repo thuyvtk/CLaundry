@@ -27,12 +27,12 @@ public class ServiceAdapter extends BaseAdapter {
     SharePreferenceLib sharePreferenceLib;
     int screenNumber;
     StoreAdapterView view;
+
     // screen: 0:storeDetail, 1: cartActivity
     public ServiceAdapter(Context context, ArrayList<ServiceDTO> listService, int screenNumber) {
         this.context = context;
         this.listService = listService;
         this.screenNumber = screenNumber;
-        sharePreferenceLib = new SharePreferenceLib(context);
     }
 
     public ServiceAdapter(Context context, ArrayList<ServiceDTO> listService, int screenNumber, StoreAdapterView view) {
@@ -40,6 +40,7 @@ public class ServiceAdapter extends BaseAdapter {
         this.listService = listService;
         this.screenNumber = screenNumber;
         this.view = view;
+        sharePreferenceLib = new SharePreferenceLib(context);
     }
 
     @Override
@@ -62,26 +63,27 @@ public class ServiceAdapter extends BaseAdapter {
         view = LayoutInflater.from(context).inflate(R.layout.service_item, null);
         ImageView imgService = view.findViewById(R.id.imgService);
         TextView txtServiceName = view.findViewById(R.id.txtServiceName);
-        TextView txtDescription = view.findViewById(R.id.txtDescription);
         TextView txtPrice = view.findViewById(R.id.txtPrice);
         ImageButton imgBAdd = view.findViewById(R.id.imgBAdd);
+        TextView txtQuantity = view.findViewById(R.id.txtQuantity);
         final ServiceDTO dto = (ServiceDTO) getItem(position);
-        if (!dto.getImage().equals("")) {
+        if (dto.getImage() != null) {
             Picasso.with(context).load(dto.getImage()).into(imgService);
         }
         txtServiceName.setText(dto.getDescription());
-        txtDescription.setText(dto.getDescription());
         txtPrice.setText(dto.getPrice() + "");
-        if(screenNumber == 0){
+        if (screenNumber == 0) {
             imgBAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     addToCart(dto);
                 }
             });
-        }else if(screenNumber == 1){
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_keyboard_arrow_down_black_24dp);
-            imgBAdd.setImageBitmap(bitmap);
+        } else if (screenNumber == 1) {
+            if(dto != null){
+                txtQuantity.setText(dto.getQuantity()+"");
+            }
+            imgBAdd.setImageResource(R.drawable.ic_add_circle_blue_24dp);
             imgBAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -106,12 +108,14 @@ public class ServiceAdapter extends BaseAdapter {
         cartDTO.removeStore(dto);
         ServiceAdapter.this.view.onRemoveFromCart(dto.getPrice());
         sharePreferenceLib.saveShoppingCart(cartDTO);
+        view.onRemoveFromCart(cartDTO.getTotalPrice());
     }
 
-    private void reLoadListService(ServiceDTO dto){
-        for (ServiceDTO item: listService) {
-            if(item.getId().equals(dto.getId())){
-                listService.remove(item);
+    private void reLoadListService(ServiceDTO dto) {
+        for (int i = 0; i < listService.size(); i++) {
+            ServiceDTO serviceDTO = listService.get(i);
+            if (serviceDTO.getId().equals(dto.getId())) {
+                listService.remove(serviceDTO);
             }
         }
     }

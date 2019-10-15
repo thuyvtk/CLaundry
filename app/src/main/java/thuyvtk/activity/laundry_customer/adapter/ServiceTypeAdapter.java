@@ -74,7 +74,6 @@ public class ServiceTypeAdapter extends BaseAdapter {
     private View addViewChild(View child, final ServiceDTO serviceDTO){
         imgService = child.findViewById(R.id.imgService);
         txtServiceName = child.findViewById(R.id.txtServiceName);
-        txtDescription = child.findViewById(R.id.txtDescription);
         txtPrice = child.findViewById(R.id.txtPrice);
         imgBAdd = child.findViewById(R.id.imgBAdd);
         // set data
