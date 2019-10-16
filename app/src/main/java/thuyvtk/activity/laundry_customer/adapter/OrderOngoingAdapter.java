@@ -25,6 +25,8 @@ import thuyvtk.activity.laundry_customer.activity.RatingActivity;
 import thuyvtk.activity.laundry_customer.model.OrderDetailDTO;
 import thuyvtk.activity.laundry_customer.model.OrderOngoingDTO;
 import thuyvtk.activity.laundry_customer.model.StoreBS;
+import thuyvtk.activity.laundry_customer.presenter.OrderPresenter;
+import thuyvtk.activity.laundry_customer.view.OrderView;
 
 public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapter.OrderOngoingViewHolder> {
     private List<OrderDetailDTO> listOrderByDate;
@@ -58,6 +60,9 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
     TextView txt_status, txt_storeName, txt_item_price;
     ImageView img_storeProfile;
     Button btnRate;
+    RatingBar rbRate;
+    Button btnSubmitRate;
+    OrderPresenter presenter;
 
     private View addViewChild(View child, OrderOngoingDTO orderDTO) {
         cv_order = child.findViewById(R.id.cv_order);
@@ -93,6 +98,20 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
             default:
                 btnRate.setVisibility(View.GONE);
         }
+        presenter = new OrderPresenter(context);
+        rbRate = child.findViewById(R.id.rbRate);
+        btnSubmitRate = child.findViewById(R.id.btnSubmitRate);
+        btnSubmitRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float rate = rbRate.getRating();
+                if(rate != 0 ){
+                    String id = (String) rbRate.getTag();
+                    presenter.ratingStore(id, rate);
+                }
+
+            }
+        });
         return child;
     }
 

@@ -43,7 +43,7 @@ public class OrderHistoryFragment extends Fragment implements OrderView {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_order_history, container, false);
         defineView(view);
-        orderPresenter = new OrderPresenter(this);
+        orderPresenter = new OrderPresenter((OrderView) this);
         getOrderByDate();
         return view;
     }

@@ -31,22 +31,22 @@ public class RatingActivity extends AppCompatActivity implements OrderView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
-        presenter = new OrderPresenter(this);
-        getDialogView();
+//        presenter = new OrderPresenter(this);
+//        getDialogView();
     }
 
-    private void getDialogView() {
-        rbRate = findViewById(R.id.rbRate);
-        btnSubmitRate = findViewById(R.id.btnSubmitRate);
-        btnSubmitRate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                float rate = rbRate.getRating();
-                String id = (String) rbRate.getTag();
-                presenter.ratingStore(id,rate);
-            }
-        });
-    }
+//    private void getDialogView() {
+//        rbRate = findViewById(R.id.rbRate);
+//        btnSubmitRate = findViewById(R.id.btnSubmitRate);
+//        btnSubmitRate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                float rate = rbRate.getRating();
+//                String id = (String) rbRate.getTag();
+//                presenter.ratingStore(id,rate);
+//            }
+//        });
+//    }
 
     @Override
     public void loadOrderHistory(List<OrderDetailDTO> orderList) {

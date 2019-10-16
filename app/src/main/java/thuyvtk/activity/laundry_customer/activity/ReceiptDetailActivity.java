@@ -76,7 +76,7 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         txtCustomerReceipt.setText(cartDTO.getCustomer().getCustomerName());
         txtTotalReceipt.setText(cartDTO.getTotalPrice() + "");
         setAddressTextBox();
-        presenter = new OrderPresenter(this);
+        presenter = new OrderPresenter((OrderView) this);
     }
 
     private void setAddressTextBox() {

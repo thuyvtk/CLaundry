@@ -1,5 +1,8 @@
 package thuyvtk.activity.laundry_customer.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.util.List;
 
 import thuyvtk.activity.laundry_customer.callbacks.CallbackData;
@@ -12,12 +15,17 @@ import thuyvtk.activity.laundry_customer.view.OrderView;
 public class OrderPresenter {
     OrderService orderService;
     OrderView view;
+    Context context;
 
     public OrderPresenter(OrderView view) {
         this.view = view;
         orderService = new OderServiceImpl();
     }
 
+    public OrderPresenter(Context context) {
+        orderService = new OderServiceImpl();
+        this.context = context;
+    }
     public void getOrderHistory(String userId, String dateStart, String dateEnd) {
         orderService.loadHistory(userId, dateStart, dateEnd, new CallbackData<List<OrderDetailDTO>>() {
             @Override
@@ -64,7 +72,7 @@ public class OrderPresenter {
         orderService.rateStore(storeId, rateNumber, new CallbackData<String>() {
             @Override
             public void onSuccess(String s) {
-                view.rateSuccess(s);
+                Toast.makeText(context, "Rating success", Toast.LENGTH_SHORT).show();
             }
 
             @Override
