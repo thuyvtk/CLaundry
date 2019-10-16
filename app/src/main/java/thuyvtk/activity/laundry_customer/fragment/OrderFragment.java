@@ -48,8 +48,8 @@ public class OrderFragment extends Fragment{
         defineView(view);
         setDateInit();
         changeSelectedTab();
-        loadFragment(new OrderOngoingFragment());
         setDialog();
+        loadFragment(new OrderOngoingFragment());
         imgCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +87,12 @@ public class OrderFragment extends Fragment{
                 txtDateStart.setText(sdf.format(startDate));
                 txtDateEnd.setText(sdf.format(endDate));
                 dialog.dismiss();
+                int position = tabOrder.getSelectedTabPosition();
+                if(position == 1){
+                    loadFragment(new OrderHistoryFragment());
+                }else{
+                    loadFragment(new OrderOngoingFragment());
+                }
             }
         });
     }

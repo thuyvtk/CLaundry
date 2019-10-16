@@ -169,10 +169,11 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/btnShoppingCart"
-                android:src="@drawable/ic_add_circle_blue_24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:src="@drawable/ic_shopping_cart_white_24dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="20dp"
+                android:background="@drawable/shopping_cart_border"
                 android:layout_gravity="bottom|right" />
         </LinearLayout>
 

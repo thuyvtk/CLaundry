@@ -74,7 +74,7 @@ public class ServiceAdapter extends BaseAdapter {
         txtServiceName.setText(dto.getDescription());
         txtPrice.setText(dto.getPrice() + "");
         if (dto != null) {
-            txtQuantity.setText(dto.getQuantity() + "");
+            txtQuantity.setText("X" + dto.getQuantity() + "");
         }
         if (screenNumber == 0) {
             imgBAdd.setVisibility(View.GONE);

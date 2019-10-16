@@ -99,19 +99,6 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
                 btnRate.setVisibility(View.GONE);
         }
         presenter = new OrderPresenter(context);
-        rbRate = child.findViewById(R.id.rbRate);
-        btnSubmitRate = child.findViewById(R.id.btnSubmitRate);
-        btnSubmitRate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                float rate = rbRate.getRating();
-                if(rate != 0 ){
-                    String id = (String) rbRate.getTag();
-                    presenter.ratingStore(id, rate);
-                }
-
-            }
-        });
         return child;
     }
 
@@ -131,7 +118,7 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
         }
     }
 
-    private void setDialogView(Dialog dialog, StoreBS store) {
+    private void setDialogView(final Dialog dialog, StoreBS store) {
         ImageView imgStoreImage = dialog.findViewById(R.id.imgStoreImage);
         TextView txtName = dialog.findViewById(R.id.txtName);
         RatingBar rbRate = dialog.findViewById(R.id.rbRate);
@@ -140,5 +127,20 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
             Picasso.with(dialog.getContext()).load(store.getImage()).into(imgStoreImage);
         }
         txtName.setText(store.getName());
+        rbRate = dialog.findViewById(R.id.rbRate);
+        btnSubmitRate = dialog.findViewById(R.id.btnSubmitRate);
+        final RatingBar finalRbRate = rbRate;
+        btnSubmitRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float rate = finalRbRate.getRating();
+                if(rate != 0 ){
+                    String id = (String) finalRbRate.getTag();
+                    presenter.ratingStore(id, rate);
+                    dialog.dismiss();
+                }
+
+            }
+        });
     }
 }

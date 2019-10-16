@@ -1,6 +1,8 @@
 package thuyvtk.activity.laundry_customer.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -22,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import thuyvtk.activity.laundry_customer.R;
+import thuyvtk.activity.laundry_customer.adapter.RecyclerViewAdapter;
 import thuyvtk.activity.laundry_customer.adapter.ServiceAdapter;
 import thuyvtk.activity.laundry_customer.library.CartDTO;
 import thuyvtk.activity.laundry_customer.library.LocationLibrary;
@@ -32,26 +35,28 @@ import thuyvtk.activity.laundry_customer.model.OrderServiceDTO;
 import thuyvtk.activity.laundry_customer.model.ServiceDTO;
 import thuyvtk.activity.laundry_customer.presenter.OrderPresenter;
 import thuyvtk.activity.laundry_customer.view.OrderView;
+import thuyvtk.activity.laundry_customer.view.SlotView;
 
-public class ReceiptDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, OrderView {
+public class ReceiptDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, OrderView, SlotView {
     TextView timeDelivery, dateDelivery, txtTotalReceipt, txtCustomerReceipt, txtAddress, timeTake, dateTake;
-    LinearLayout ln_timeDelivery, ln_dateDelivery, ln_timeTake, ln_dateTake, ln_receipt_waiting;
+    LinearLayout ln_dateTake, ln_receipt_waiting;
     ListView lvReceipt;
     SharePreferenceLib sharePreferenceLib;
     ArrayList<ServiceDTO> listService;
     CartDTO cartDTO;
     String PENDING = "ongoing";
-    Boolean isTake = false;
     OrderPresenter presenter;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager recyclerViewLayoutManager;
+    RecyclerViewAdapter recyclerViewHorizontalAdapter;
+    LinearLayoutManager horizontalLayout;
+    Boolean isTakeChoosen = true;
 
     private void defineView() {
         timeDelivery = findViewById(R.id.timeDelivery);
         dateDelivery = findViewById(R.id.dateDelivery);
-        ln_timeDelivery = findViewById(R.id.ln_timeDelivery);
-        ln_dateDelivery = findViewById(R.id.ln_dateDelivery);
         timeTake = findViewById(R.id.timeTake);
         dateTake = findViewById(R.id.dateTake);
-        ln_timeTake = findViewById(R.id.ln_timeTake);
         ln_dateTake = findViewById(R.id.ln_dateTake);
         lvReceipt = findViewById(R.id.lvReceipt);
         txtTotalReceipt = findViewById(R.id.txtTotalReceipt);
@@ -66,6 +71,7 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         setContentView(R.layout.activity_receipt_detail);
         defineView();
         setTime();
+        loadListSlot();
         sharePreferenceLib = new SharePreferenceLib(this);
         cartDTO = sharePreferenceLib.getShoppingCart();
         if (cartDTO != null) {
@@ -77,6 +83,38 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         txtTotalReceipt.setText(cartDTO.getTotalPrice() + "");
         setAddressTextBox();
         presenter = new OrderPresenter((OrderView) this);
+    }
+
+    private void loadListSlot() {
+        recyclerView = (RecyclerView) findViewById(R.id.rv_slotsAvailable);
+        recyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+        // Adding items to RecyclerView.
+        ArrayList<String> slots = AddItemsToRecyclerViewArrayList();
+
+        recyclerViewHorizontalAdapter = new RecyclerViewAdapter(slots, this);
+
+        horizontalLayout = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(horizontalLayout);
+
+        recyclerView.setAdapter(recyclerViewHorizontalAdapter);
+    }
+
+    private ArrayList<String> AddItemsToRecyclerViewArrayList() {
+        ArrayList<String> slots = new ArrayList<>();
+        slots.add("06:00");
+        slots.add("08:00");
+        slots.add("10:00");
+        slots.add("12:00");
+        slots.add("14:00");
+        slots.add("16:00");
+        slots.add("18:00");
+        slots.add("20:30");
+        slots.add("22:00");
+        slots.add("00:00");
+        slots.add("02:00");
+        slots.add("04:00");
+        return slots;
     }
 
     private void setAddressTextBox() {
@@ -117,47 +155,12 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         Date nextDate = date;
         nextDate.setDate(date.getDay() + 1);
         dateDelivery.setText(dateFormat.format(nextDate));
-        ln_timeDelivery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(ReceiptDetailActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        String time = hourOfDay + ":" + minute;
-                        timeDelivery.setText(time);
-                    }
-                }, 0, 0, true);
-                timePickerDialog.setTitle("Select Delivery Time");
-                timePickerDialog.show();
-            }
-        });
-        ln_dateDelivery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerDialog.show();
-            }
-        });
-        // time take
+
         timeTake.setText(timeFormat.format(date));
         dateTake.setText(dateFormat.format(nextDate));
-        ln_timeTake.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(ReceiptDetailActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        String time = hourOfDay + ":" + minute;
-                        timeTake.setText(time);
-                    }
-                }, 0, 0, true);
-                timePickerDialog.setTitle("Select Take Time");
-                timePickerDialog.show();
-            }
-        });
         ln_dateTake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isTake = true;
                 datePickerDialog.show();
             }
         });
@@ -166,9 +169,8 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String date = dayOfMonth + "/" + (month + 1) + "/" + year;
-        if (isTake) {
+        if (isTakeChoosen) {
             dateTake.setText(date);
-            isTake = false;
         } else {
             dateDelivery.setText(date);
         }
@@ -212,5 +214,22 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
     @Override
     public void rateSuccess(String message) {
 
+    }
+
+    @Override
+    public void slotChange(String time) {
+        if (isTakeChoosen) {
+            timeTake.setText(time);
+        } else {
+            timeDelivery.setText(time);
+        }
+    }
+
+    public void clickToChooseTake(View view) {
+        isTakeChoosen = true;
+    }
+
+    public void clickToChooseDelivery(View view) {
+        isTakeChoosen = false;
     }
 }
