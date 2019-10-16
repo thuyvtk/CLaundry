@@ -70,6 +70,7 @@
                     android:textColor="#0d0d0d"/>
             </LinearLayout>
             <Button
+                android:id="@+id/btnRate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Rating"

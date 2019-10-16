@@ -17,10 +17,10 @@ public class ConfigApi {
         String GET_CUSTOMER_BY_FIREBASE_ID = "Customer/GetByUserID";
         String UPDATE_CUSTOMER = "Customer/UpdateCustomer";
         //order
-        String ORDER_HISTORY = "Order/History";
+        String ORDER_HISTORY = "Order/GetOrderHistory";
         String CREATE_ORDER = "Order/CreateOrder";
         String GET_BY_DATE_STATUS = "Order/GetByCustomerId";
-        String GET_BY_DATE_STATUS = "Order/GetByCustomerId";
+        String RATE_STORE = "Order/RateStore";
         //service
         String GET_ALL_SERVICE = "ServiceType/GetAll";
     }

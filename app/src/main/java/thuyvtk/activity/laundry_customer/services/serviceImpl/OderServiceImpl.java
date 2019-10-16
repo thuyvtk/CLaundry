@@ -23,8 +23,8 @@ public class OderServiceImpl implements OrderService {
     ClientApi clientApi = new ClientApi();
 
     @Override
-    public void loadHistory(String userId, final CallbackData<List<OrderDTO>> callbackData) {
-        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getOrderHistory(userId);
+    public void loadHistory(String userId, String dateStart, String dateEnd, final CallbackData<List<OrderDetailDTO>> callbackData) {
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().getOrderHistory(userId, dateStart, dateEnd);
         try {
             serviceCall.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -33,9 +33,9 @@ public class OderServiceImpl implements OrderService {
                         if (response.code() == 200) {
                             try {
                                 String result = response.body().string();
-                                Type type = new TypeToken<List<OrderDTO>>() {
+                                Type type = new TypeToken<List<OrderDetailDTO>>() {
                                 }.getType();
-                                List<OrderDTO> responseResult = new Gson().fromJson(result, type);
+                                List<OrderDetailDTO> responseResult = new Gson().fromJson(result, type);
                                 if (responseResult != null) {
                                     callbackData.onSuccess(responseResult);
                                 } else {
@@ -47,7 +47,6 @@ public class OderServiceImpl implements OrderService {
                         } else {
                             callbackData.onFail("timeout");
                         }
-
                     }
 
                 }
@@ -116,6 +115,30 @@ public class OderServiceImpl implements OrderService {
                         } else {
                             callbackData.onFail("timeout");
                         }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void rateStore(String storeId, float rateNumber, final CallbackData<String> callbackData) {
+        Call<ResponseBody> serviceCall = clientApi.getGenericApi().rateStore(storeId, rateNumber);
+        try {
+            serviceCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.code() == 200 || response.code() == 201) {
+                        callbackData.onSuccess("Rating success");
+                    } else {
+                        callbackData.onFail("timeout");
                     }
                 }
 

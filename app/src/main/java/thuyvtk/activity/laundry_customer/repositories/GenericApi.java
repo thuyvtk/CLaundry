@@ -1,5 +1,7 @@
 package thuyvtk.activity.laundry_customer.repositories;
 
+import android.graphics.Bitmap;
+
 import java.sql.Timestamp;
 
 import okhttp3.RequestBody;
@@ -44,7 +46,8 @@ public interface GenericApi {
 
     // order
     @GET(ConfigApi.Api.ORDER_HISTORY)
-    Call<ResponseBody> getOrderHistory(@Query("Id") String userId);
+    Call<ResponseBody> getOrderHistory(@Query("Id") String userId, @Query("DateCreateStart") String dateStart,
+                                       @Query("DateCreateEnd") String dateEnd);
 
     @POST(ConfigApi.Api.CREATE_ORDER)
     Call<ResponseBody> createOrder(@Body RequestBody order);
@@ -55,4 +58,7 @@ public interface GenericApi {
     @GET(ConfigApi.Api.GET_BY_DATE_STATUS)
     Call<ResponseBody> getByDateAndStatus(@Query("Id") String customerId, @Query("DateCreateStart") String dateStart,
                                           @Query("DateCreateEnd") String dateEnd, @Query("Status") String status);
+
+    @PUT(ConfigApi.Api.RATE_STORE)
+    Call<ResponseBody> rateStore(@Query("Id") String storeId, @Query("Rate") float rateNumber);
 }

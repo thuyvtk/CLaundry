@@ -40,7 +40,7 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
     SharePreferenceLib sharePreferenceLib;
     ArrayList<ServiceDTO> listService;
     CartDTO cartDTO;
-    String PENDING = "pending";
+    String PENDING = "ongoing";
     Boolean isTake = false;
     OrderPresenter presenter;
 
@@ -175,8 +175,9 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
 
     }
 
+
     @Override
-    public void loadOrderHistory(List<OrderDTO> orderList) {
+    public void loadOrderHistory(List<OrderDetailDTO> orderList) {
 
     }
 
@@ -201,11 +202,15 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
     }
 
     @Override
     public void returnListOrder(List<OrderDetailDTO> listOrderDetail) {
+
+    }
+
+    @Override
+    public void rateSuccess(String message) {
 
     }
 }

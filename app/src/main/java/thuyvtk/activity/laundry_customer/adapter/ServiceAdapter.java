@@ -40,6 +40,7 @@ public class ServiceAdapter extends BaseAdapter {
         this.listService = listService;
         this.screenNumber = screenNumber;
         this.view = view;
+        this.originalList = listService;
         sharePreferenceLib = new SharePreferenceLib(context);
     }
 
@@ -67,7 +68,7 @@ public class ServiceAdapter extends BaseAdapter {
         ImageButton imgBAdd = view.findViewById(R.id.imgBAdd);
         TextView txtQuantity = view.findViewById(R.id.txtQuantity);
         final ServiceDTO dto = (ServiceDTO) getItem(position);
-        if (dto.getImage() != null) {
+        if (dto.getImage() != null && !dto.getImage().equals("")) {
             Picasso.with(context).load(dto.getImage()).into(imgService);
         }
         txtServiceName.setText(dto.getDescription());
@@ -105,5 +106,6 @@ public class ServiceAdapter extends BaseAdapter {
             }
         }
         listService = originalList;
+        notifyDataSetChanged();
     }
 }

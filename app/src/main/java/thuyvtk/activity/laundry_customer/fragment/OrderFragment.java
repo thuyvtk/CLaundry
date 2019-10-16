@@ -33,6 +33,7 @@ public class OrderFragment extends Fragment{
     Dialog dialog;
     Button dialogButton;
     TabLayout tabOrder;
+    final String FORMAT_DATE = "yyyy-MM-dd";
 
     public OrderFragment() {
         // Required empty public constructor
@@ -80,7 +81,7 @@ public class OrderFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 ArrayList<Date> selectedDates = (ArrayList<Date>) cal_order.getSelectedDates();
-                SimpleDateFormat sdf =  new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdf =  new SimpleDateFormat(FORMAT_DATE);
                 Date startDate = selectedDates.get(0);
                 Date endDate = selectedDates.get(selectedDates.size() - 1);
                 txtDateStart.setText(sdf.format(startDate));
@@ -91,7 +92,7 @@ public class OrderFragment extends Fragment{
     }
 
     private void setDateInit() {
-        SimpleDateFormat sdf =  new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf =  new SimpleDateFormat(FORMAT_DATE);
         Date currentTime = Calendar.getInstance().getTime();
         txtDateEnd.setText(sdf.format(currentTime));
         Calendar calendar = Calendar.getInstance();

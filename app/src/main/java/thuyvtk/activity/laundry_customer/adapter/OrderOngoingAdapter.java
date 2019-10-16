@@ -1,11 +1,15 @@
 package thuyvtk.activity.laundry_customer.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import thuyvtk.activity.laundry_customer.R;
-import thuyvtk.activity.laundry_customer.model.OrderDTO;
+import thuyvtk.activity.laundry_customer.activity.RatingActivity;
 import thuyvtk.activity.laundry_customer.model.OrderDetailDTO;
 import thuyvtk.activity.laundry_customer.model.OrderOngoingDTO;
 import thuyvtk.activity.laundry_customer.model.StoreBS;
@@ -42,10 +46,10 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
     public void onBindViewHolder(@NonNull OrderOngoingViewHolder holder, int position) {
         OrderDetailDTO orderDetailDTO = listOrderByDate.get(position);
         holder.txt_date_create.setText(String.format(orderDetailDTO.getDateCreate(), "dd/MM/yyyy"));
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (OrderOngoingDTO item : orderDetailDTO.getListOrder()) {
-            View child = inflater.inflate(R.layout.item_order_sub,null);
-            child = addViewChild(child,item);
+            View child = inflater.inflate(R.layout.item_order_sub, null);
+            child = addViewChild(child, item);
             holder.list_order.addView(child);
         }
     }
@@ -53,21 +57,42 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
     CardView cv_order;
     TextView txt_status, txt_storeName, txt_item_price;
     ImageView img_storeProfile;
-    private View addViewChild(View child, OrderOngoingDTO orderDTO){
+    Button btnRate;
+
+    private View addViewChild(View child, OrderOngoingDTO orderDTO) {
         cv_order = child.findViewById(R.id.cv_order);
         txt_status = child.findViewById(R.id.txt_status);
         txt_storeName = child.findViewById(R.id.txt_storeName);
         txt_item_price = child.findViewById(R.id.txt_item_price);
         img_storeProfile = child.findViewById(R.id.img_storeProfile);
+        btnRate = child.findViewById(R.id.btnRate);
 
         txt_status.setText(orderDTO.getStatus());
-        StoreBS store = orderDTO.getListOrderServices().get(0).getServiceDTO().getStore();
-        if(store.getImage() != null){
+        final StoreBS store = orderDTO.getListOrderServices().get(0).getServiceDTO().getStore();
+        if (store.getImage() != null) {
             Picasso.with(context).load(store.getImage()).into(img_storeProfile);
         }
-       txt_storeName.setText(store.getName());
+        txt_storeName.setText(store.getName());
         String item_price = orderDTO.getListOrderServices().size() + " items - " + orderDTO.getTotalPrice() + " VND";
         txt_item_price.setText(item_price);
+        String status = orderDTO.getStatus();
+        switch (status) {
+            case "done":
+            case "cancel":
+                btnRate.setText("Rating");
+                btnRate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.activity_rating);
+                        setDialogView(dialog, store);
+                        dialog.show();
+                    }
+                });
+                break;
+            default:
+                btnRate.setVisibility(View.GONE);
+        }
         return child;
     }
 
@@ -85,5 +110,16 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
             txt_date_create = serviceView.findViewById(R.id.txt_date_create);
             list_order = serviceView.findViewById(R.id.list_order);
         }
+    }
+
+    private void setDialogView(Dialog dialog, StoreBS store) {
+        ImageView imgStoreImage = dialog.findViewById(R.id.imgStoreImage);
+        TextView txtName = dialog.findViewById(R.id.txtName);
+        RatingBar rbRate = dialog.findViewById(R.id.rbRate);
+        rbRate.setTag(store.getStore_id());
+        if (store.getImage() != null && !store.getImage().equals("")) {
+            Picasso.with(dialog.getContext()).load(store.getImage()).into(imgStoreImage);
+        }
+        txtName.setText(store.getName());
     }
 }

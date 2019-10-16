@@ -6,8 +6,9 @@ import thuyvtk.activity.laundry_customer.model.OrderDTO;
 import thuyvtk.activity.laundry_customer.model.OrderDetailDTO;
 
 public interface OrderView {
-    void loadOrderHistory(List<OrderDTO> orderList);
+    void loadOrderHistory(List<OrderDetailDTO> orderList);
     void onFail(String msg);
     void createOrderSuccess();
     void returnListOrder(List<OrderDetailDTO> listOrderDetail);
+    void rateSuccess(String message);
 }

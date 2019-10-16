@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class OrderOngoingFragment extends Fragment implements OrderView {
     OrderPresenter orderPresenter;
     LinearLayout ln_waiting;
     OrderOngoingAdapter adapter;
+    TextView txtDateStart, txtDateEnd;
 
     public OrderOngoingFragment() {
         // Required empty public constructor
@@ -54,17 +56,22 @@ public class OrderOngoingFragment extends Fragment implements OrderView {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_order.setLayoutManager(linearLayoutManager);
         ln_waiting = view.findViewById(R.id.ln_waiting);
+        txtDateStart = getActivity().findViewById(R.id.txtDayStart);
+        txtDateEnd = getActivity().findViewById(R.id.txtDayEnd);
     }
 
     private void getOrderByDate() {
         SharePreferenceLib sharePreferenceLib = new SharePreferenceLib(getContext());
-        orderPresenter.getOrderByDateAndStatus(sharePreferenceLib.getUser().getCustomerId(), "2019-10-03","2019-10-14", "ongoing");
+        String dateStart = txtDateStart.getText().toString();
+        String dateEnd = txtDateEnd.getText().toString();
+        orderPresenter.getOrderByDateAndStatus(sharePreferenceLib.getUser().getCustomerId(), dateStart,dateEnd, "ongoing");
         ln_waiting.setVisibility(View.VISIBLE);
 
     }
 
+
     @Override
-    public void loadOrderHistory(List<OrderDTO> orderList) {
+    public void loadOrderHistory(List<OrderDetailDTO> orderList) {
 
     }
 
@@ -83,5 +90,10 @@ public class OrderOngoingFragment extends Fragment implements OrderView {
         adapter = new OrderOngoingAdapter(getActivity(),listOrderDetail);
         rv_order.setAdapter(adapter);
         ln_waiting.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void rateSuccess(String message) {
+
     }
 }

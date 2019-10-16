@@ -18,10 +18,10 @@ public class OrderPresenter {
         orderService = new OderServiceImpl();
     }
 
-    public void getOrderHistory(String userId) {
-        orderService.loadHistory(userId, new CallbackData<List<OrderDTO>>() {
+    public void getOrderHistory(String userId, String dateStart, String dateEnd) {
+        orderService.loadHistory(userId, dateStart, dateEnd, new CallbackData<List<OrderDetailDTO>>() {
             @Override
-            public void onSuccess(List<OrderDTO> orderDTOS) {
+            public void onSuccess(List<OrderDetailDTO> orderDTOS) {
                 view.loadOrderHistory(orderDTOS);
             }
 
@@ -51,6 +51,20 @@ public class OrderPresenter {
             @Override
             public void onSuccess(List<OrderDetailDTO> orderDetailDTOS) {
                 view.returnListOrder(orderDetailDTOS);
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
+    }
+
+    public void ratingStore(String storeId, float rateNumber){
+        orderService.rateStore(storeId, rateNumber, new CallbackData<String>() {
+            @Override
+            public void onSuccess(String s) {
+                view.rateSuccess(s);
             }
 
             @Override
