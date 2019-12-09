@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class AccountFragment extends Fragment  {
     CircleImageView image_profile;
     TextView txtLogout;
     TextView txtStoreName;
+    TextView btnHistory;
     public AccountFragment() {
         // Required empty public constructor
     }
@@ -37,6 +39,7 @@ public class AccountFragment extends Fragment  {
         image_profile = view.findViewById(R.id.image_profile);
         txtLogout = view.findViewById(R.id.txtLogout);
         txtStoreName = view.findViewById(R.id.txtStoreName);
+        btnHistory = view.findViewById(R.id.btnHistory);
     }
 
     @Override
@@ -46,6 +49,7 @@ public class AccountFragment extends Fragment  {
         defineView(view);
         getStoreProfile();
         openPageEdit();
+        openPageHistory();
         logOut();
         return view;
     }
@@ -86,6 +90,20 @@ public class AccountFragment extends Fragment  {
         });
     }
 
+
+    public void openPageHistory() {
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                OrderFragment orderFragment = new OrderFragment();
+                fragmentTransaction.replace(R.id.main_fragment, orderFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+    }
 
     
 }

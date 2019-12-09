@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.RatingActivity"></activity>
+        <activity android:name=".activity.DetailOrderHistoryActivity"></activity>
+        <activity android:name=".activity.RatingActivity" />
         <activity android:name=".activity.SearchStoreResultActivity" />
         <activity android:name=".activity.ReceiptDetailActivity" />
         <activity android:name=".activity.ShoppingCartActivity" />
@@ -29,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

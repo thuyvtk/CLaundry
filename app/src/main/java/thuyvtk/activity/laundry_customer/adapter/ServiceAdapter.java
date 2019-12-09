@@ -27,7 +27,7 @@ public class ServiceAdapter extends BaseAdapter {
     int screenNumber;
     StoreAdapterView view;
 
-    // screen: 0:receipt, 1: cartActivity
+    // screen: 0:receipt, 1: cartActivity 2: order detail
     public ServiceAdapter(Context context, ArrayList<ServiceDTO> listService, int screenNumber) {
         this.context = context;
         this.listService = listService;
@@ -87,6 +87,8 @@ public class ServiceAdapter extends BaseAdapter {
                     reLoadListService(dto);
                 }
             });
+        }else if(screenNumber == 2){
+           imgBAdd.setVisibility(View.GONE);
         }
         return view;
     }

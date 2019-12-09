@@ -19,18 +19,32 @@ public class OrderDTO implements Serializable {
     private Date takeTime;
     @SerializedName("DeliveryTime")
     private Date deliveryTime;
+    @SerializedName("Address")
+    private String address;
     @SerializedName("OrderServices")
     private List<OrderServiceDTO> listOrderServices;
 
     public OrderDTO() {
     }
 
-    public OrderDTO(float totalPrice, String status, String customerId, Date takeTime, Date deliveryTime, List<OrderServiceDTO> listOrderServices) {
+    public OrderDTO(float totalPrice, String status, String customerId, Date takeTime, Date deliveryTime, String address, List<OrderServiceDTO> listOrderServices) {
         this.totalPrice = totalPrice;
         this.status = status;
         this.customerId = customerId;
         this.takeTime = takeTime;
         this.deliveryTime = deliveryTime;
+        this.address = address;
+        this.listOrderServices = listOrderServices;
+    }
+
+    public OrderDTO(String orderId, float totalPrice, String status, String customerId, Date takeTime, Date deliveryTime, String address, List<OrderServiceDTO> listOrderServices) {
+        this.orderId = orderId;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.customerId = customerId;
+        this.takeTime = takeTime;
+        this.deliveryTime = deliveryTime;
+        this.address = address;
         this.listOrderServices = listOrderServices;
     }
 
@@ -82,6 +96,14 @@ public class OrderDTO implements Serializable {
         this.deliveryTime = deliveryTime;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public List<OrderServiceDTO> getListOrderServices() {
         return listOrderServices;
     }
@@ -89,5 +111,4 @@ public class OrderDTO implements Serializable {
     public void setListOrderServices(List<OrderServiceDTO> listOrderServices) {
         this.listOrderServices = listOrderServices;
     }
-
 }

@@ -1,16 +1,10 @@
 package thuyvtk.activity.laundry_customer.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import thuyvtk.activity.laundry_customer.R;
@@ -36,9 +30,6 @@ public class MainActivity extends FragmentActivity implements BottomNavigationVi
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 fragment = new HomeFragment();
-                break;
-            case R.id.navigation_notification:
-//                fragment =  new HomeFragment();
                 break;
             case R.id.navigation_oder:
                 fragment =  new OrderFragment();

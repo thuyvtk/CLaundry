@@ -18,8 +18,21 @@ public class OrderOngoingDTO implements Serializable {
     private String takeTime;
     @SerializedName("DeliveryTime")
     private String deliveryTime;
+    @SerializedName("Address")
+    private String address;
     @SerializedName("OrderServices")
     private List<OrderServiceDTO> listOrderServices;
+
+    public OrderOngoingDTO(String orderId, float totalPrice, String status, String customerId, String takeTime, String deliveryTime, String address, List<OrderServiceDTO> listOrderServices) {
+        this.orderId = orderId;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.customerId = customerId;
+        this.takeTime = takeTime;
+        this.deliveryTime = deliveryTime;
+        this.address = address;
+        this.listOrderServices = listOrderServices;
+    }
 
     public OrderOngoingDTO(String orderId, float totalPrice, String status, String customerId, String takeTime, String deliveryTime, List<OrderServiceDTO> listOrderServices) {
         this.orderId = orderId;
@@ -29,6 +42,14 @@ public class OrderOngoingDTO implements Serializable {
         this.takeTime = takeTime;
         this.deliveryTime = deliveryTime;
         this.listOrderServices = listOrderServices;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getOrderId() {

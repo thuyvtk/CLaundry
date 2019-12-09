@@ -50,7 +50,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(final MyView holder, final int position) {
 
         holder.slot_textview1.setText(list.get(position));
-        holder.slot_textview2.setText("80K");
+        if(position >= 4 && position <= 8){
+            holder.slot_textview2.setText("PM");
+        }else{
+            holder.slot_textview2.setText("AM");
+        }
+
         if (selectedPosition == position){
             holder.slot_textview1.setBackgroundResource(R.drawable.border_radius_slot_item_green);
             holder.slot_textview2.setTextColor(Color.parseColor("#009432"));

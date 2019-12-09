@@ -84,7 +84,7 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:gravity="center|left">
             <TextView
                 android:layout_width="wrap_content"
@@ -118,7 +118,6 @@
                 android:id="@+id/radio_group"
                 >
                 <RadioButton
-                    android:checked="true"
                     android:onClick="clickToChooseTake"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -136,6 +135,8 @@
 
         </LinearLayout>
         <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -166,6 +167,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.recyclerview.widget.RecyclerView
@@ -185,7 +187,6 @@
         android:layout_height="550dp"
         android:layout_weight="8" />
     <LinearLayout
-        android:layout_weight="1"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp">

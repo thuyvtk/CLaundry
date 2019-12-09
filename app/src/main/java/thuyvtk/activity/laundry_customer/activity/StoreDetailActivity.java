@@ -30,7 +30,7 @@ import thuyvtk.activity.laundry_customer.presenter.StorePresenter;
 import thuyvtk.activity.laundry_customer.view.StoreView;
 
 public class StoreDetailActivity extends AppCompatActivity implements StoreView {
-    ImageView imgOpen, btnShoppingCart,imgStore;
+    ImageView imgOpen,imgStore;
     TextView txtOpen, txtStoreName, txtStoreAddress, txtStoreRate;
     ListView lvServiceType;
     StorePresenter presenter;
@@ -38,6 +38,7 @@ public class StoreDetailActivity extends AppCompatActivity implements StoreView 
     ServiceTypeAdapter adapter ;
     final int SERVICE_TYPE_HEIGHT = 50;
     final int SERVICE_HEIGHT = 250;
+    LinearLayout btnShoppingCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

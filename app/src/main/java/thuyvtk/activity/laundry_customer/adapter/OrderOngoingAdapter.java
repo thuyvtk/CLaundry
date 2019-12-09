@@ -21,12 +21,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import thuyvtk.activity.laundry_customer.R;
-import thuyvtk.activity.laundry_customer.activity.RatingActivity;
+import thuyvtk.activity.laundry_customer.activity.DetailOrderHistoryActivity;
 import thuyvtk.activity.laundry_customer.model.OrderDetailDTO;
 import thuyvtk.activity.laundry_customer.model.OrderOngoingDTO;
 import thuyvtk.activity.laundry_customer.model.StoreBS;
 import thuyvtk.activity.laundry_customer.presenter.OrderPresenter;
-import thuyvtk.activity.laundry_customer.view.OrderView;
 
 public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapter.OrderOngoingViewHolder> {
     private List<OrderDetailDTO> listOrderByDate;
@@ -48,11 +47,19 @@ public class OrderOngoingAdapter extends RecyclerView.Adapter<OrderOngoingAdapte
     public void onBindViewHolder(@NonNull OrderOngoingViewHolder holder, int position) {
         OrderDetailDTO orderDetailDTO = listOrderByDate.get(position);
         holder.txt_date_create.setText(String.format(orderDetailDTO.getDateCreate(), "dd/MM/yyyy"));
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        for (OrderOngoingDTO item : orderDetailDTO.getListOrder()) {
+        final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        for (final OrderOngoingDTO item : orderDetailDTO.getListOrder()) {
             View child = inflater.inflate(R.layout.item_order_sub, null);
             child = addViewChild(child, item);
             holder.list_order.addView(child);
+            child.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, DetailOrderHistoryActivity.class);
+                    intent.putExtra("ORDERDTO",item);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

@@ -136,8 +136,9 @@ public class ReceiptDetailActivity extends AppCompatActivity implements DatePick
         try {
             Date take = sdf.parse(takeTime);
             Date delivery = sdf.parse(deliveryTime);
+            String address = txtAddress.getText().toString();
             OrderDTO orderDTO = new OrderDTO((float) cartDTO.getTotalPrice(), PENDING,
-                    cartDTO.getCustomer().getCustomerId(), take, delivery, listOrder);
+                    cartDTO.getCustomer().getCustomerId(), take, delivery,address, listOrder);
             presenter.createOrder(orderDTO);
             ln_receipt_waiting.setVisibility(View.VISIBLE);
         } catch (ParseException e) {

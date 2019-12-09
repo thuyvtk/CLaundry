@@ -6,7 +6,8 @@
         android:id="@+id/txt_date_create"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="@color/darker"/>
+        android:background="@color/darker"
+        android:gravity="center_vertical"/>
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/list_order"
