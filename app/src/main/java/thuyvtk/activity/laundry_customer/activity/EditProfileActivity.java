@@ -42,9 +42,9 @@ public class EditProfileActivity extends Activity implements CustomerView {
     CircleImageView image_profile;
     String imageName;
     Context context;
-    static final String CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=sqlvadtabpe45ilkho;AccountKey=Q0GtVfudYOKaYykP6CLCyk7uG/0Dak6C9WuAGDj5wQizMJDFEtEPaTGkGtdmNAatlbSXo4xznJAvOw4slPYAIg==;EndpointSuffix=core.windows.net";
-    static final String IMAGE_FOLDER = "imagefolder";
-    final String serverName = "https://sqlvadtabpe45ilkho.blob.core.windows.net/";
+    static final String CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=image2001;AccountKey=gQZGWuOQdOI9pCzBu+iU3W24uKQ+d/NIinGMb9lgTi8wZGT1kFLJvafbcquuYNiS6a1plYpR6iqF1EpGWxR+XQ==;EndpointSuffix=core.windows.net";
+    static final String IMAGE_FOLDER = "image";
+    final String serverName = "https://image2001.blob.core.windows.net/";
     CustomerPresenter customerPresenter;
     SharePreferenceLib sharePreferenceLib;
     boolean flagChangeImageProfile = false;

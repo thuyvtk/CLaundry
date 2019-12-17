@@ -129,6 +129,7 @@ public class VerifyCodeOTPActivity extends Activity implements CustomerView {
     @Override
     public void returnCustomer(CustomerDTO customerDTO) {
         SharePreferenceLib sharePreferenceLib = new SharePreferenceLib(this);
+        customerDTO.setPhone(phone);
         sharePreferenceLib.saveUser(customerDTO);
         ln_login_waiting.setVisibility(View.GONE);
         this.finish();

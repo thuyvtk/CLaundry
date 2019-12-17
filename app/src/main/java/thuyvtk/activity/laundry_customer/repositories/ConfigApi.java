@@ -2,7 +2,7 @@ package thuyvtk.activity.laundry_customer.repositories;
 
 public class ConfigApi {
 
-    public static final String BASE_URL = "https://giatdo20191009105153.azurewebsites.net/api/";
+    public static final String BASE_URL = "https://giatdo20191126083629.azurewebsites.net/api/";
 
 
     public interface Api {
