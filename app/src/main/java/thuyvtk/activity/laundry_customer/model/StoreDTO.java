@@ -14,8 +14,8 @@ public class StoreDTO implements Serializable {
     private String email;
     @SerializedName("AccountId")
     private String accountId;
-    @SerializedName("rate")
-    private int rate;
+    @SerializedName("Rate")
+    private float rate;
     @SerializedName("Address")
     private String Address;
     @SerializedName("Imgurl")
@@ -58,7 +58,7 @@ public class StoreDTO implements Serializable {
         isActivate = activate;
     }
 
-    public StoreDTO(String store_id, String name, String email, String accountId, int rate, String address, String image, boolean isActivate, List<ServiceTypeDTO> listServiceType) {
+    public StoreDTO(String store_id, String name, String email, String accountId, float rate, String address, String image, boolean isActivate, List<ServiceTypeDTO> listServiceType) {
         this.store_id = store_id;
         this.name = name;
         this.email = email;
@@ -112,11 +112,11 @@ public class StoreDTO implements Serializable {
         this.accountId = accountId;
     }
 
-    public int getRate() {
+    public float getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(float rate) {
         this.rate = rate;
     }
 }

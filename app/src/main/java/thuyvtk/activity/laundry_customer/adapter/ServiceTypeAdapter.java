@@ -77,11 +77,13 @@ public class ServiceTypeAdapter extends BaseAdapter {
         txtPrice = child.findViewById(R.id.txtPrice);
         imgBAdd = child.findViewById(R.id.imgBAdd);
         // set data
+        txtServiceName.setText(serviceDTO.getDescription());
+        double price = serviceDTO.getPrice();
+        txtPrice.setText( price + " VND");
         if (serviceDTO.getImage() != null && !serviceDTO.getImage().equals("")) {
             Picasso.with(context).load(serviceDTO.getImage()).into(imgService);
         }
-        txtServiceName.setText(serviceDTO.getDescription());
-        txtPrice.setText(serviceDTO.getPrice() + " VND");
+
         imgBAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
