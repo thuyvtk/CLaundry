@@ -37,7 +37,7 @@ public class StoreDetailActivity extends AppCompatActivity implements StoreView 
     LinearLayout ln_store_waiting;
     ServiceTypeAdapter adapter ;
     final int SERVICE_TYPE_HEIGHT = 50;
-    final int SERVICE_HEIGHT = 250;
+    final int SERVICE_HEIGHT = 270;
     LinearLayout btnShoppingCart;
 
     @Override
